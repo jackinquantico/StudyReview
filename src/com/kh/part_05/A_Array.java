@@ -58,4 +58,30 @@ public class A_Array {
 		}
 		
 	}
+	
+	public void method10() {
+		
+		/*
+		 * 좋아하는 과일의 개수를 입력받아 
+		 * 그만큼 반복을 돌리면서 과일명을 입력받기 -> 입력받을 때마다 문자열 배열에 담아서 출력
+		 */
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("좋아하는 과일의 개수 입력 : ");
+		int num = sc.nextInt();
+		sc.nextLine();
+		
+		String[] fruit = new String[num];
+		
+		for (int i=0; i<num; i++) {
+			System.out.print("과일 이름 입력 : ");
+			fruit[i] = sc.nextLine();
+		}
+		
+		System.out.println("== 입력한 과일 ==");
+		for (int i=0; i<num; i++) {
+			System.out.print(fruit[i] + " ");
+		}
+	}
 }
