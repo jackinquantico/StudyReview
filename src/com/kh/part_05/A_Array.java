@@ -33,4 +33,29 @@ public class A_Array {
 		System.out.printf("3명의 키 평균 : %.2fcm", average);
 		
 	}
+	
+	public void method8() {
+		
+		// 사용자에게 문자열을 하나 입력받은 후
+		// 각각의 문자들을 char배열에 옮겨담기
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("문자열을 하나 입력하세요 : ");
+		String str = sc.nextLine();
+		
+		// 배열의 크기 = 문자열의 길이
+		char[] ch = new char[str.length()];
+		
+		// 배열에 대입
+		for (int i=0; i<ch.length; i++) {
+			ch[i] = str.charAt(i);
+		}
+		
+		// 배열 출력
+		for (int i=0; i<ch.length; i++) {
+			System.out.print(ch[i]+ " ");
+		}
+		
+	}
 }
