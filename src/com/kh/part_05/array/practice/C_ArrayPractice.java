@@ -172,6 +172,36 @@ public class C_ArrayPractice {
 				
 	}
 	
+	public void practice8_2() {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 : ");
+		while (true) {
+			int num = sc.nextInt();
+			sc.nextLine();
+			
+			if ((num % 2 == 0)||(num<3)) {
+				System.out.println("다시 입력하세요");
+				continue;
+			}
+			
+			int[] result = new int[num];
+			int half = num/2 + 1;
+			
+			for (int i=0; i<half; i++) {
+				result[i] = i+1;
+			}
+			
+			for (int i=half; i<num; i++) {
+				result[i] = num-i; 
+			}
+			
+			System.out.println(Arrays.toString(result));
+		}
+		
+	}
+	
 	public void practice9() {
 		
 		String[] chicken = {"양념", "불닭", "치즈", "후라이드"};
@@ -188,10 +218,35 @@ public class C_ArrayPractice {
 			}
 		}
 		
+		
 		System.out.println(input+"치킨은 없는 메뉴입니다.");
 		
 	}
 
+	public void practice9_2() {
+		String[] chicken = {"양념", "불닭", "치즈", "후라이드"};
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("치킨 이름을 입력하세요 : ");
+		String input = sc.nextLine();
+		
+		for (int i=0; i<chicken.length; i++) {
+			if (!(input.equals(chicken[i]))) {
+				if (i < chicken.length-1) {
+					continue;
+				} else {
+					System.out.println(input+"치킨은 없는 메뉴입니다.");
+				}
+			} else {
+				System.out.println(input + "치킨 배달 가능");
+				break;
+			}
+		}
+		
+		
+	}
+	
 	public void practice10() {
 		
 		int[] num = new int[10];
