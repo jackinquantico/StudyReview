@@ -16,12 +16,14 @@ public class Run {
 //		c.practice6();
 //		c.practice7();
 //		c.practice8();
+		c.practice8_2();
 //		c.practice9();
+//		c.practice9_2();
 //		c.practice10();
 //		c.practice11();
 //		c.practice12();
 //		c.practice13();
-		c.practice14();
+//		c.practice14();
 		
 	}
 
