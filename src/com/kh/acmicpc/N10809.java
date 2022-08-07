@@ -24,7 +24,7 @@ public class N10809 {
 		}
 		
 		for (int i=0; i<at.length; i++) {
-			System.out.print(at[i] + " ");
+			System.out.print(at[i] +" ");
 		}
 	}
 }
