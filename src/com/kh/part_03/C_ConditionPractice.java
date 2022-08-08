@@ -294,13 +294,19 @@ public class C_ConditionPractice {
 			System.out.println("Pass");
 		} else {
 			System.out.println("======결과======");
-			if (sum<70 && chulScore<70) {
-				System.out.print("FAIL [출석 횟수 부족] ("+(int)chul+"/20)\n");
-				System.out.print("FAIL [점수 미달] (총점 "+sum+")");
-			} else if(chulScore < 70) {
-				System.out.print("FAIL [출석 횟수 부족] ("+(int)chul+"/20)");
-			} else if(sum<70) {
-				System.out.print("FAIL [점수 미달] (총점 "+sum+")");
+//			if (sum<70 && chulScore<70) {
+//				System.out.print("FAIL [출석 횟수 부족] ("+(int)chul+"/20)\n");
+//				System.out.print("FAIL [점수 미달] (총점 "+sum+")");
+//			} else if(chulScore < 70) {
+//				System.out.print("FAIL [출석 횟수 부족] ("+(int)chul+"/20)");
+//			} else if(sum<70) {
+//				System.out.print("FAIL [점수 미달] (총점 "+sum+")");
+//			}
+			if (chulScore < 70) {
+				System.out.println("FAIL [출석 횟수 부족] ("+(int)chul+"/20)");
+			}
+			if (sum<70) {
+				System.out.println("FAIL [점수 미달] (총점 "+sum+")");
 			}
 		}
 		
