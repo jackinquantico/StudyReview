@@ -5,6 +5,8 @@ import java.util.Scanner;
 import com.kh.part_08.hw1.model.vo.Employee;
 import com.kh.part_08.hw1.model.vo.Student;
 
+// 다형성과 instanceOf 사용해서
+// Person[] 에 담아놓고 반복문으로 student 일때만 출력, employee 일 때만 출력
 public class Run {
 
 	public static void main(String[] args) {
