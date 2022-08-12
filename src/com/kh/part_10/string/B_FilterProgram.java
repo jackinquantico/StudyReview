@@ -24,8 +24,6 @@ public class B_FilterProgram {
 		
 		String[] filter = {"신발끈", "개나리", "수박씨", "호루라기", "시베리아", "십장생", "조카", "주옥", "쌍쌍바", "십자수", "식빵"};
 		
-		String result = "";
-		
 		for (int i=0; i<input.length(); i++) {			
 			String star = "";
 			for (int j=0; j<filter[i].length(); j++) {
