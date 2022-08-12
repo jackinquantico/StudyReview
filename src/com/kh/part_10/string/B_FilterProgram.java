@@ -36,4 +36,31 @@ public class B_FilterProgram {
 		System.out.println(input);
 	
 	}
+	
+	public void method3() {
+		
+		/*
+		 * 욕설의 앞 글자는 보여주고, 뒷 자리만 *로 치환
+		 * ex) 신발끈 -> 신**
+		 */
+
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("문장을 하나 입력하세요 : ");
+		String input = sc.nextLine();
+		
+		String[] filter = {"신발끈", "개나리", "수박씨", "호루라기", "시베리아", "십장생", "조카", "주옥", "쌍쌍바", "십자수", "식빵"};
+		
+		for (int i=0; i<filter.length; i++) {			
+			String star = "" + filter[i].charAt(0);
+			
+			for (int j=1; j<filter[i].length(); j++) {
+				star += "*";
+			}
+			
+			input = input.replace(filter[i], star);
+		}
+		
+		System.out.println(input);
+	}
 }
