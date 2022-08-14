@@ -9,8 +9,8 @@ public class N1157 {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		// 입력받고 알파벳 배열 세팅
-		String str = sc.nextLine();
+		// 입력받고 알파벳 배열 세팅 : 대소문자 구분 없으므로 lowercase로 통일
+		String str = sc.nextLine().toLowerCase();
 		int[] abc = new int[26];
 		
 		// for문 돌리면서 abc 배열에 사용된 횟수 증가시키기
@@ -22,21 +22,19 @@ public class N1157 {
 		}
 				
 		// 가장 많이 사용한 문자 찾기
-		int max = abc[0];
-		for (int i=1; i<abc.length; i++) {
-			int tmp = abc[i];
-			if (max <= tmp) {
+		int max = -1;
+		char ch = ' ';
+		for (int i=0; i<abc.length; i++) {
+			if (max < abc[i]) {
+				max = abc[i];
+				ch = (char)(i + 65);
+			} else if (max == abc[i]) {
 				// 가장 많이 사용된 문자가 중복인 경우 ? 출력
-				if (max == tmp) {
-					System.out.println("?");
-					return;
-				}
-				max = tmp;
-				System.out.println(i+'a');
-			} 
+				ch = '?';
+			}
 		}
 		
-		System.out.println(max);
+		System.out.println(ch);
 
 	}
 
