@@ -16,6 +16,11 @@ public class PhoneArrayListRun {
 		list.add(new Phone("갤럭시s", "10", "삼성", 1000000));
 		list.add(new Phone("아이폰", "11프로", "애플", 800000));
 		
+		list.get(0).setName("아이폰");
+		list.get(0).setSeries("8");
+		list.get(0).setBrand("애플");
+		list.get(0).setPrice(700000);
+		
 		// 향상된 for문으로 출력
 		for (Phone p : list) {
 			System.out.println(p.information());
