@@ -55,6 +55,22 @@ public class Book {
 
 	@Override
 	public String toString() {
+		
+		String category = "";
+		switch (this.category) {
+		case 1:
+			category = "인문";
+			break;
+		case 2:
+			category = "자연과학";
+			break;
+		case 3 :
+			category = "의료";
+		case 4 :
+			category = "기타";
+			break;
+		}
+		
 		return "[Book No : "+bNo+", title : "+title+", author : "+author+", category : " + category+ "]";
 	}
 	
