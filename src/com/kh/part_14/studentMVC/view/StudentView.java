@@ -21,6 +21,9 @@ public class StudentView {
 			System.out.println(" 4. 학생 정보 삭제하기");
 			System.out.println(" 5. 학생 정보 검색하기");
 			System.out.println(" 6. 국어 점수 평균 조회");
+			System.out.println(" 7. 영어 점수 평균 조회");
+			System.out.println(" 8. 수학 점수 평균 조회");
+			System.out.println(" 9. 전체 성적 평균 조회");
 			System.out.println(" 0. 프로그램 종료하기");
 			
 			System.out.println("=================");
@@ -46,6 +49,15 @@ public class StudentView {
 				break;
 			case 6:
 				averageKor();
+				break;
+			case 7:
+				averageEng();
+				break;
+			case 8:
+				averageMath();
+				break;
+			case 9:
+				averageAll();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
@@ -74,7 +86,7 @@ public class StudentView {
 		System.out.print("영어 점수 입력 : ");
 		int eng = sc.nextInt();
 		sc.nextLine();
-		System.out.print("수학 점수 입력  : ");
+		System.out.print("수학 점수 입력 : ");
 		int math = sc.nextInt();
 		sc.nextLine();
 		
@@ -200,6 +212,42 @@ public class StudentView {
 		
 		// average 출력
 		System.out.println("국어 점수 평군 : "+average);
+	}
+	
+	public void averageEng() {
+		
+		System.out.println("=== 영어 점수 평균 ===");
+		
+		// averageEng() 호출
+		// 결과물 average 반환
+		double average = scontrol.averageEng();
+		
+		// average 출력
+		System.out.println("영어 점수 평균 : "+average);
+	}
+	
+	public void averageMath() {
+		
+		System.out.println("=== 수학 점수 평균 ===");
+		
+		// averageMath() 호출
+		// 결과물 average 반환
+		double average = scontrol.averageMath();
+		
+		// average 출력
+		System.out.println("수학 점수 평균 : "+average);		
+	}
+	
+	public void averageAll() {
+		
+		System.out.println("=== 전체 점수 평균 ===");
+		
+		// averageAll() 호출
+		// 결과물 average 반환
+		double average = scontrol.averageAll();
+		
+		// average 출력
+		System.out.println("전체 점수 평균 : "+average);
 	}
 	
 }
