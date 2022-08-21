@@ -79,4 +79,37 @@ public class StudentController {
 		return (double)sum / list.size();
 	}
 	
+	public double averageEng() {
+		
+		int sum = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			sum += list.get(i).getEng();
+		}
+		
+		return (double)sum / list.size();		
+	}
+	
+	public double averageMath() {
+		
+		int sum = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			sum += list.get(i).getMath();
+		}
+		
+		return (double)sum / list.size();
+	}
+
+	public double averageAll() {
+		
+		int sum = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			sum += list.get(i).getKor() + list.get(i).getEng() + list.get(i).getMath();
+		}
+		
+		return (double)sum / ( 3 * list.size());
+	}
+	
 }
