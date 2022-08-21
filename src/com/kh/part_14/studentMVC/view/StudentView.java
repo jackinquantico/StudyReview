@@ -211,7 +211,7 @@ public class StudentView {
 		double average = scontrol.averageKor();
 		
 		// average 출력
-		System.out.println("국어 점수 평군 : "+average);
+		System.out.println("국어 점수 평군 : "+(Math.round(average*100)/100.0));
 	}
 	
 	public void averageEng() {
@@ -223,7 +223,7 @@ public class StudentView {
 		double average = scontrol.averageEng();
 		
 		// average 출력
-		System.out.println("영어 점수 평균 : "+average);
+		System.out.println("영어 점수 평균 : "+(Math.round(average*100)/100.0));
 	}
 	
 	public void averageMath() {
@@ -235,7 +235,7 @@ public class StudentView {
 		double average = scontrol.averageMath();
 		
 		// average 출력
-		System.out.println("수학 점수 평균 : "+average);		
+		System.out.println("수학 점수 평균 : "+(Math.round(average*100)/100.0));		
 	}
 	
 	public void averageAll() {
@@ -247,7 +247,7 @@ public class StudentView {
 		double average = scontrol.averageAll();
 		
 		// average 출력
-		System.out.println("전체 점수 평균 : "+average);
+		System.out.println("전체 점수 평균 : "+(Math.round(average*100)/100.0));
 	}
 	
 }
