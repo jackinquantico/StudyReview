@@ -7,6 +7,11 @@ import com.kh.part_14.studentMVC.model.vo.Student;
 public class StudentController {
 
 	ArrayList<Student> list = new ArrayList<Student>();
+	{
+		list.add(new Student("±è¸»¼ø", 19, 90, 90, 90));
+		list.add(new Student("±è¸»¶Ë", 19, 80, 80, 80));
+		list.add(new Student("È«±æµ¿", 19, 75, 75, 75));		
+	}
 	
 	public int insertStudent(String name, int age, int kor, int eng, int math) {
 		
