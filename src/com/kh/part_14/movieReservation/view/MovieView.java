@@ -3,6 +3,8 @@ package com.kh.part_14.movieReservation.view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.RowFilter;
+
 import com.kh.part_14.movieReservation.controller.MovieController;
 import com.kh.part_14.movieReservation.model.vo.Movie;
 
@@ -23,6 +25,7 @@ public class MovieView {
 			System.out.println("=================");
 			System.out.print("메뉴 번호 입력 : ");
 			int menu = sc.nextInt();
+			sc.nextLine();
 			
 			switch (menu) {
 			case 1:
@@ -67,6 +70,11 @@ public class MovieView {
 	public void selectMovie() {
 		
 		System.out.println("=== 영화 예매 ===");
+		ArrayList<Movie> list = mc.showMovieList();
+		for (Movie m : list) {
+			System.out.println(m);
+		}
+		
 		System.out.print("예매할 영화를 선택해주세요 : ");
 		String title = sc.nextLine();
 		
@@ -75,6 +83,9 @@ public class MovieView {
 		if (searched.isEmpty()) {
 			System.out.println("해당 영화가 존재하지 않습니다.");
 		} else {
+			for (Movie m : searched) {
+				System.out.println(m);
+			}
 			selectSeat();
 		}
 		
@@ -82,13 +93,13 @@ public class MovieView {
 	
 	public void selectSeat() {
 		
-		System.out.println("=== 자리 선택 ===");
+		System.out.println("\n=== 자리 선택 ===");
 		
 		System.out.println("=============="); //14
 		for (int i=0; i<mc.seatNoRow.length; i++) {
 			System.out.print(mc.seatNoRow[i]+":");
-			for (int j=0; j<mc.seatNoCol.length; j++) {
-				System.out.print(" " + mc.seatNoCol[j]);
+			for (int j=0; j<mc.seatNoCol[i].length; j++) {
+				System.out.print(" " + mc.seatNoCol[i][j]);
 			}
 			System.out.println();
 		}
@@ -97,6 +108,15 @@ public class MovieView {
 		char row = sc.nextLine().toUpperCase().charAt(0);
 		System.out.print("좌석 행 입력(1~6) : ");
 		char col = sc.nextLine().charAt(0);
+		
+		if (!('A' <= row && row <= 'E')) {
+			System.out.println("잘못된 열을 입력했습니다.");
+			return;
+		}
+		if (!('1' <= col && col <= '6')) {
+			System.out.println("잘못된 행을 입력했습니다.");
+			return;
+		}
 		
 		boolean result = mc.selectSeat(row, col);
 		
@@ -110,6 +130,26 @@ public class MovieView {
 	
 	public void cancelMovie() {
 		
+		System.out.println("=== 영화 취소 ===");
+		ArrayList<Movie> list = mc.showMovieList();
+		for (Movie m : list) {
+			System.out.println(m);
+		}
+		
+		System.out.print("취소할 영화를 입력해주세요 : ");
+		String title = sc.nextLine();
+		System.out.print("예매 좌석 열 입력(A~E) : ");
+		char row = sc.nextLine().toUpperCase().charAt(0);
+		System.out.print("예매 좌석 행 입력(1~6) : ");
+		char col = sc.nextLine().charAt(0);
+		
+		boolean result = mc.cancelMovie(title, row, col);
+		
+		if (result == true) {
+			System.out.println("취소에 성공했습니다.");
+		} else {
+			System.out.println("예약 내역이 존재하지 않습니다.");
+		}
 	}
 	
 }

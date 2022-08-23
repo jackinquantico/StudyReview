@@ -14,9 +14,14 @@ public class MovieController {
 	}
 	
 	public static char[] seatNoRow = {'A','B','C','D','E'};
-	public static char[] seatNoCol = {'1','2','3','4','5','6'};
+	public static char[][] seatNoCol = {{'1','2','3','4','5','6'},
+										{'1','2','3','4','5','6'},
+										{'1','2','3','4','5','6'},
+										{'1','2','3','4','5','6'},
+										{'1','2','3','4','5','6'}};
 	private char tmpCol;
 	private char tmpRow;
+	private String tmpTitle;
 	
 	public ArrayList<Movie> showMovieList() {
 	
@@ -28,8 +33,9 @@ public class MovieController {
 		ArrayList<Movie> searched = new ArrayList<Movie>();
 		
 		for (int i=0; i<list.size(); i++) {
-			if (list.get(i).getTitle().contains(title)) {
+			if (list.get(i).getTitle().equals(title)) {
 				searched.add(list.get(i));
+				tmpTitle = title;
 			}
 		}
 		
@@ -37,15 +43,7 @@ public class MovieController {
 	}
 	
 	public boolean selectSeat(char row, char col) {
-		
-		if (!('A' <= row && row <= 'E')) {
-			System.out.println("잘못된 열을 입력했습니다.");
-			return false;
-		}
-		if (!('1' <= col && col <= '6')) {
-			System.out.println("잘못된 행을 입력했습니다.");
-			return false;
-		}
+
 		if (tmpCol == col && tmpRow == row) {
 			System.out.println("이미 예약된 좌석입니다.");
 			return false;
@@ -53,6 +51,21 @@ public class MovieController {
 		
 		tmpCol = col;
 		tmpRow = row;
+		seatNoCol[row - 'A'][col - '1'] = 'X';
+		
+		return true;
+	}
+	
+	public boolean cancelMovie(String title, char row, char col) {
+		
+		if (!(tmpTitle.equals(title))) {
+			return false;
+		}
+		if (tmpRow != row || tmpCol != col) {
+			return false;
+		}
+		
+		seatNoCol[row - 'A'][col - '1'] = col;
 		
 		return true;
 	}
