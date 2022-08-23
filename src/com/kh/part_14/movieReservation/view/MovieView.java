@@ -8,8 +8,8 @@ import com.kh.part_14.movieReservation.model.vo.Movie;
 
 public class MovieView {
 
-	Scanner sc = new Scanner(System.in);
-	MovieController mc = new MovieController();
+	private Scanner sc = new Scanner(System.in);
+	private MovieController mc = new MovieController();
 	
 	public void mainMenu() {
 		
@@ -66,6 +66,46 @@ public class MovieView {
 	
 	public void selectMovie() {
 		
+		System.out.println("=== 영화 예매 ===");
+		System.out.print("예매할 영화를 선택해주세요 : ");
+		String title = sc.nextLine();
+		
+		ArrayList<Movie> searched = mc.selectMovie(title);
+		
+		if (searched.isEmpty()) {
+			System.out.println("해당 영화가 존재하지 않습니다.");
+		} else {
+			selectSeat();
+		}
+		
+	}
+	
+	public void selectSeat() {
+		
+		System.out.println("=== 자리 선택 ===");
+		
+		System.out.println("=============="); //14
+		for (int i=0; i<mc.seatNoRow.length; i++) {
+			System.out.print(mc.seatNoRow[i]+":");
+			for (int j=0; j<mc.seatNoCol.length; j++) {
+				System.out.print(" " + mc.seatNoCol[j]);
+			}
+			System.out.println();
+		}
+		
+		System.out.print("좌석 열 입력(A~E) : ");
+		char row = sc.nextLine().toUpperCase().charAt(0);
+		System.out.print("좌석 행 입력(1~6) : ");
+		char col = sc.nextLine().charAt(0);
+		
+		boolean result = mc.selectSeat(row, col);
+		
+		if (result == true) {
+			System.out.println("예매에 성공했습니다.");
+		} else {
+			System.out.println("예매에 실패했습니다.");
+		}
+		
 	}
 	
 	public void cancelMovie() {
@@ -73,3 +113,15 @@ public class MovieView {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
