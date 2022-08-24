@@ -7,8 +7,8 @@ public class Theater {
 	private String sysPw = "syspw";
 	
 	// ¼Õ´Ô id, pw
-	private String cosId;
-	private String cosPw;
+	private String cosId = "";
+	private String cosPw = "";
 	
 	public Theater() {
 		

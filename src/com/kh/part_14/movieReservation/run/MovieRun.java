@@ -8,7 +8,7 @@ public class MovieRun {
 		
 		MovieView mv = new MovieView();
 		
-		mv.mainMenu();
+		mv.loginMenu();
 
 	}
 
