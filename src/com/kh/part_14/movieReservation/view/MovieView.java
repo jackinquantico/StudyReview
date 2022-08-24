@@ -19,7 +19,8 @@ public class MovieView {
 			
 			System.out.println("==== ## 영화관 ====");
 			System.out.println("1. 고객 로그인");
-			System.out.println("2. 관리자 로그인");
+			System.out.println("2. 고객 회원가입");
+			System.out.println("3. 관리자 로그인");
 			System.out.println("0. 프로그램 종료");
 			System.out.println("=================");
 			int menu = sc.nextInt();
@@ -30,6 +31,9 @@ public class MovieView {
 				cosLogin();
 				break;
 			case 2:
+				cosSignup();
+				break;
+			case 3:
 				sysLogin();
 				break;
 			case 0:
@@ -47,11 +51,94 @@ public class MovieView {
 	public void cosLogin() {
 		
 		System.out.println("고객 로그인 창입니다.");
+		System.out.print("고객 아이디를 입력하세요 : ");
+		String cosId = sc.nextLine();
+		System.out.print("고객 비밀번호를 입력하세요 : ");
+		String cosPw = sc.nextLine();
+		
+		int result = mc.cosLogin(cosId, cosPw);
+		
+		if (result == 3) {
+			System.out.println("로그인에 성공했습니다.");
+			
+			while (true) {
+				System.out.print("메인 메뉴로 접속하시겠습니까?(Y/N) : ");
+				String answer = sc.nextLine();
+				
+				if (answer.toUpperCase().charAt(0) == 'Y') {
+					System.out.println("메인 메뉴로 접속합니다.\n");
+					mainMenu();
+				} else if (answer.toUpperCase().charAt(0) == 'N') {
+					System.out.println("프로그램을 종료합니다.");
+					return;
+				} else {
+					System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+				}
+			}
+		} else {
+			if (result == 2) {
+				System.out.println("비밀번호가 일치하지 않습니다.");
+			} else if (result == 1) {
+				System.out.println("아이디가 일치하지 않습니다.");
+			} else {
+				System.out.println("해당 아이디는 존재하지 않습니다.");
+			}
+			
+			System.out.println("로그인에 실패했습니다.");
+		}
+		
+	}
+	
+	public void cosSignup() {
+		
+		System.out.println("고객 회원가입 창입니다.");
+		System.out.print("사용할 아이디를 입력하세요 : ");
+		String cosId = sc.nextLine();
+		System.out.print("사용할 비밀번호를 입력하세요 : ");
+		String cosPw = sc.nextLine();
+		
+		int result = mc.cosSignup(cosId, cosPw);
+		
+		if (result > 0) {
+			System.out.println("회원가입에 성공했습니다.");
+		} else {
+			System.out.println("이미 존재하는 아이디입니다.");
+			System.out.println("회원가입에 실패했습니다.");
+		}
 	}
 	
 	public void sysLogin() {
 		
 		System.out.println("관리자 로그인 창입니다.");
+		
+		System.out.print("관리자 아이디를 입력하세요 : ");
+		String sysId = sc.nextLine();
+		System.out.print("관리자 비밀번호를 입력하세요 : ");
+		String sysPw = sc.nextLine();
+		
+		int result = mc.sysLogin(sysId, sysPw);
+			
+		if (result > 0) {
+			System.out.println("로그인에 성공했습니다.");
+			
+			while (true) {
+				System.out.print("관리자 메뉴로 이동하시겠습니까?(Y/N) : ");
+				String answer = sc.nextLine();
+				
+				if (answer.toUpperCase().charAt(0) == 'Y') {
+					System.out.println("관리자 메뉴로 접속합니다.\n");
+					sysMenu();
+				} else if (answer.toUpperCase().charAt(0) == 'N') {
+					System.out.println("프로그램을 종료합니다.");
+					System.exit(0);
+				} else {
+					System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+				}
+			}
+			
+		} else {
+			System.out.println("로그인에 실패했습니다.");
+		}
 		
 	}
 	
@@ -81,7 +168,7 @@ public class MovieView {
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
-				return;
+				System.exit(0);;
 			default:
 				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
 			}
@@ -90,6 +177,7 @@ public class MovieView {
 			
 		}
 	}
+	
 	
 	public void showMovieList() {
 		
@@ -108,6 +196,7 @@ public class MovieView {
 			}
 		}
 	}
+	
 	
 	public void selectMovie() {
 		
@@ -194,6 +283,46 @@ public class MovieView {
 		}
 	}
 	
+	public void sysMenu() {
+		
+		while (true) {
+		
+			System.out.println("==== ## 영화관 ====");
+			System.out.println("==== 관리자 메뉴 ====");
+			System.out.println("1. 영화 추가하기");
+			System.out.println("2. 영화 삭제하기");
+			System.out.println("3. 영화 목록보기");
+			System.out.println("0. 프로그램 종료");
+			System.out.println("=================");
+			System.out.print("메뉴 번호 입력 : ");
+			int menu = sc.nextInt();
+			sc.nextLine();
+			
+			switch (menu) {
+			case 1:
+				insertMovie();
+				break;
+			case 2:
+				deleteMovie();
+				break;
+			case 0:
+				System.out.println("프로그램을 종료합니다.");
+				System.exit(0);
+			default:
+				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			}
+			
+			System.out.println();
+		}
+	}
+	
+	public void insertMovie() {
+		
+	}
+	
+	public void deleteMovie() {
+		
+	}
 }
 
 

@@ -3,6 +3,7 @@ package com.kh.part_14.movieReservation.controller;
 import java.util.ArrayList;
 
 import com.kh.part_14.movieReservation.model.vo.Movie;
+import com.kh.part_14.movieReservation.model.vo.Theater;
 
 public class MovieController {
 
@@ -12,6 +13,8 @@ public class MovieController {
 		list.add(new Movie("기생충", "봉준호", "스릴", 183));
 		list.add(new Movie("살인의 추억", "봉준호", "추리", 134));
 	}
+	
+	Theater th = new Theater();
 	
 	public static char[] seatNoRow = {'A','B','C','D','E'};
 	public static char[][] seatNoCol = {{'1','2','3','4','5','6'},
@@ -69,5 +72,56 @@ public class MovieController {
 		
 		return true;
 	}
+
+	public int cosLogin(String cosId, String cosPw) {
+		
+		int result = 0;
+		
+		if (th.getCosId().equals(cosId)) {
+			result += 2;
+		}
+		if (th.getCosPw().equals(cosPw)) {
+			result++;
+		}
+		
+		return result;
+	}
 	
+	public int cosSignup(String cosId, String cosPw) {
+		
+		int result = 0;
+		
+		if (th.getCosId().equals(cosId)) {
+			return result;
+		}
+		
+		th.setCosId(cosId);
+		th.setCosPw(cosPw);
+		result++;
+		
+		return result;
+	}
+	
+	public int sysLogin(String sysId, String sysPw) {
+		
+		int result = 0;
+		
+		if (th.getSysId().equals(sysId) && th.getSysPw().equals(sysPw)) {
+			result++;
+		}
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
