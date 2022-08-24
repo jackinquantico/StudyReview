@@ -305,6 +305,9 @@ public class MovieView {
 			case 2:
 				deleteMovie();
 				break;
+			case 3:
+				showMovieList();
+				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
 				System.exit(0);
@@ -318,11 +321,43 @@ public class MovieView {
 	
 	public void insertMovie() {
 		
+		System.out.println("=== 영화 추가 ===");
+		System.out.print("추가할 영화 제목 입력 : ");
+		String title = sc.nextLine();
+		System.out.print("추가할 영화 감독 입력 : ");
+		String director = sc.nextLine();
+		System.out.print("추가할 영화 장르 입력 : "); 
+		String genre = sc.nextLine();
+		System.out.print("추가할 영화 상영 시간 : ");
+		int runtime = sc.nextInt();
+		sc.nextLine();
+		
+		int result = mc.insertMovie(title, director, genre, runtime);
+		
+		if (result > 0) {
+			System.out.println("추가에 성공했습니다.");
+		} else {
+			System.out.println("추가에 실패했습니다.");
+		}
 	}
 	
 	public void deleteMovie() {
 		
+		System.out.println("=== 영화 삭제 ===");
+		System.out.print("삭제할 영화 제목 입력 : ");
+		String title = sc.nextLine();
+		System.out.print("삭제할 영화 감독 입력 : ");
+		String director = sc.nextLine();
+		
+		int result = mc.deleteMovie(title, director);
+		
+		if (result > 0) {
+			System.out.println("삭제에 성공했습니다.");
+		} else {
+			System.out.println("삭제할 영화가 존재하지 않습니다.");
+		}
 	}
+	
 }
 
 

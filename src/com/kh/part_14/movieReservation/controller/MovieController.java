@@ -112,6 +112,30 @@ public class MovieController {
 		
 		return result;
 	}
+	
+	public int insertMovie(String title, String director, String genre, int runtime) {
+		
+		int result = 0;
+		
+		list.add(new Movie(title, director, genre, runtime));
+		result++;
+		
+		return result;
+	}
+	
+	public int deleteMovie(String title, String director) {
+		
+		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getTitle().equals(title) && list.get(i).getDirector().equals(director)) {
+				list.remove(i);
+				result++;
+			}
+		}
+		
+		return result;
+	}
 }
 
 
