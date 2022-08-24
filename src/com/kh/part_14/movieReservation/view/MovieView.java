@@ -13,6 +13,48 @@ public class MovieView {
 	private Scanner sc = new Scanner(System.in);
 	private MovieController mc = new MovieController();
 	
+	public void loginMenu() {
+			
+		while(true) {
+			
+			System.out.println("==== ## 영화관 ====");
+			System.out.println("1. 고객 로그인");
+			System.out.println("2. 관리자 로그인");
+			System.out.println("0. 프로그램 종료");
+			System.out.println("=================");
+			int menu = sc.nextInt();
+			sc.nextLine();
+			
+			switch (menu) {
+			case 1:
+				cosLogin();
+				break;
+			case 2:
+				sysLogin();
+				break;
+			case 0:
+				System.out.println("프로그램을 종료합니다.");
+				return;
+			default:
+				System.out.println("잘못 입력하셨습니다. 다시 입력해주세요.");
+			}
+			
+			System.out.println();
+			
+		}
+	}
+	
+	public void cosLogin() {
+		
+		System.out.println("고객 로그인 창입니다.");
+	}
+	
+	public void sysLogin() {
+		
+		System.out.println("관리자 로그인 창입니다.");
+		
+	}
+	
 	public void mainMenu() {
 		
 		while (true) {
@@ -21,7 +63,7 @@ public class MovieView {
 			System.out.println("1. 영화 목록 보기");
 			System.out.println("2. 영화 예매하기");
 			System.out.println("3. 영화 취소하기");
-			System.out.println("0. 종료하기");
+			System.out.println("0. 프로그램 종료");
 			System.out.println("=================");
 			System.out.print("메뉴 번호 입력 : ");
 			int menu = sc.nextInt();
