@@ -273,13 +273,14 @@ public class MovieView {
 		System.out.print("예매 좌석 행 입력(1~6) : ");
 		char col = sc.nextLine().charAt(0);
 		
-		boolean result = mc.cancelMovie(title, row, col);
+		int result = mc.cancelSeat(title, row, col);
 		
-		if (result == true) {
+		if (result > 0) {
 			System.out.println("취소에 성공했습니다.");
 		} else {
 			System.out.println("예약 내역이 존재하지 않습니다.");
 		}
+		
 	}
 	
 	public void sysMenu() {

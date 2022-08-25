@@ -29,26 +29,6 @@ public class MovieController {
 	
 	private MovieSeat ms = new MovieSeat();
 	
-	public int mapSeat(char tmpRow, char tmpCol) {
-		
-		int result = 0;
-		
-		if (ms.getTmpRow()==tmpRow && ms.getTmpCol() == tmpCol) {
-			return result;
-			
-		} else {
-			ms.getTmpSeat().put(tmpRow, tmpCol);
-			ms.setTmpCol(tmpCol);
-			ms.setTmpRow(tmpRow);
-			
-			seatNoCol[tmpRow - 'A'][tmpCol - '1'] = 'X';
-			result++;		
-			
-		}
-				
-		return result;
-	}
-	
 	public ArrayList<Movie> showMovieList() {
 	
 		return list;
@@ -82,18 +62,56 @@ public class MovieController {
 //		return true;
 //	}
 	
-	public boolean cancelMovie(String title, char row, char col) {
+	public int mapSeat(char tmpRow, char tmpCol) {
+		
+		int result = 0;
+		
+		if (ms.getTmpRow()==tmpRow && ms.getTmpCol() == tmpCol) {
+			return result;
+			
+		} else {
+			ms.getTmpSeat().put(tmpRow, tmpCol);
+			ms.setTmpCol(tmpCol);
+			ms.setTmpRow(tmpRow);
+			
+			seatNoCol[tmpRow - 'A'][tmpCol - '1'] = 'X';
+			result++;		
+			
+		}
+				
+		return result;
+	}
+	
+//	public boolean cancelMovie(String title, char row, char col) {
+//		
+//		if (!(tmpTitle.equals(title))) {
+//			return false;
+//		}
+//		if (tmpRow != row || tmpCol != col) {
+//			return false;
+//		}
+//		
+//		seatNoCol[row - 'A'][col - '1'] = col;
+//		
+//		return true;
+//	}
+	
+	public int cancelSeat(String title, char row, char col) {
+		
+		int result = 0;
 		
 		if (!(tmpTitle.equals(title))) {
-			return false;
+			return result;
 		}
-		if (tmpRow != row || tmpCol != col) {
-			return false;
-		}
-		
+		if (ms.getTmpCol() != col || ms.getTmpRow() != row) {
+			return result;
+		} else {
+		ms.getTmpSeat().remove(row);
 		seatNoCol[row - 'A'][col - '1'] = col;
+		result++;
+		}
 		
-		return true;
+		return result;
 	}
 
 	public int cosLogin(String cosId, String cosPw) {
