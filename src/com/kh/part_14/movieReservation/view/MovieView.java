@@ -177,8 +177,7 @@ public class MovieView {
 			
 		}
 	}
-	
-	
+		
 	public void showMovieList() {
 		
 		System.out.println("==== 영화 목록 ====");
@@ -196,8 +195,7 @@ public class MovieView {
 			}
 		}
 	}
-	
-	
+		
 	public void selectMovie() {
 		
 		System.out.println("=== 영화 예매 ===");
@@ -248,12 +246,13 @@ public class MovieView {
 			System.out.println("잘못된 행을 입력했습니다.");
 			return;
 		}
+				
+		int result = mc.mapSeat(row, col);
 		
-		boolean result = mc.selectSeat(row, col);
-		
-		if (result == true) {
+		if (result > 0) {
 			System.out.println("예매에 성공했습니다.");
 		} else {
+			System.out.println("이미 선택된 좌석입니다.");
 			System.out.println("예매에 실패했습니다.");
 		}
 		

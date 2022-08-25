@@ -8,8 +8,9 @@ public class MovieRun {
 		
 		MovieView mv = new MovieView();
 		
-		mv.loginMenu();
+		// mv.loginMenu();
 
+		mv.mainMenu();
 	}
 
 }

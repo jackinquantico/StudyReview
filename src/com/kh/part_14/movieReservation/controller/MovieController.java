@@ -3,6 +3,7 @@ package com.kh.part_14.movieReservation.controller;
 import java.util.ArrayList;
 
 import com.kh.part_14.movieReservation.model.vo.Movie;
+import com.kh.part_14.movieReservation.model.vo.MovieSeat;
 import com.kh.part_14.movieReservation.model.vo.Theater;
 
 public class MovieController {
@@ -26,6 +27,28 @@ public class MovieController {
 	private char tmpRow;
 	private String tmpTitle;
 	
+	private MovieSeat ms = new MovieSeat();
+	
+	public int mapSeat(char tmpRow, char tmpCol) {
+		
+		int result = 0;
+		
+		if (ms.getTmpRow()==tmpRow && ms.getTmpCol() == tmpCol) {
+			return result;
+			
+		} else {
+			ms.getTmpSeat().put(tmpRow, tmpCol);
+			ms.setTmpCol(tmpCol);
+			ms.setTmpRow(tmpRow);
+			
+			seatNoCol[tmpRow - 'A'][tmpCol - '1'] = 'X';
+			result++;		
+			
+		}
+				
+		return result;
+	}
+	
 	public ArrayList<Movie> showMovieList() {
 	
 		return list;
@@ -45,19 +68,19 @@ public class MovieController {
 		return searched;
 	}
 	
-	public boolean selectSeat(char row, char col) {
-
-		if (tmpCol == col && tmpRow == row) {
-			System.out.println("이미 예약된 좌석입니다.");
-			return false;
-		}
-		
-		tmpCol = col;
-		tmpRow = row;
-		seatNoCol[row - 'A'][col - '1'] = 'X';
-		
-		return true;
-	}
+//	public boolean selectSeat(char row, char col) {
+//
+//		if (tmpCol == col && tmpRow == row) {
+//			System.out.println("이미 예약된 좌석입니다.");
+//			return false;
+//		}
+//		
+//		tmpCol = col;
+//		tmpRow = row;
+//		seatNoCol[row - 'A'][col - '1'] = 'X';
+//		
+//		return true;
+//	}
 	
 	public boolean cancelMovie(String title, char row, char col) {
 		
