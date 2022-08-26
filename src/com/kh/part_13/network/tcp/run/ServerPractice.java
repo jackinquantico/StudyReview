@@ -20,19 +20,19 @@ public class ServerPractice {
 		int port = 3000;
 		
 		// 변수 선언 및 null 초기화
-		Socket socket = null;
+		ServerSocket serverSocket = null;
 		BufferedReader br = null;
 		PrintWriter pw = null;
 		
 		try {
 			// 3. 서버소켓 만들기
-			ServerSocket serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port);
 			
 			// 대기상태
 			System.out.println("클라이언트의 요청을 기다리는 중입니다..");
 			
 			// 4. 연결 요청 오면 Socket 객체 생성
-			socket = serverSocket.accept();
+			Socket socket = serverSocket.accept();
 			
 			// 5. 입출력 기반 스트림
 			// 6. 보조 스트림 추가
@@ -62,7 +62,7 @@ public class ServerPractice {
 				// 자원 반납 및 통로 끊기
 				pw.close();
 				br.close();
-				socket.close();
+				serverSocket.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
