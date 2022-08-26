@@ -12,6 +12,19 @@ public class BankController {
 		acc.add(new Account("ȫ�浿", "123123123"));
 	}
 	
+	public int loginAccount(String owner, String accountNum) {
+		
+		int result = 0;
+		
+		for (int i=0; i<acc.size(); i++) {
+			if (acc.get(i).getOwner().equals(owner) && acc.get(i).getAccountNum().equals(accountNum)) {
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
 	public int getAccount(String owner, String accountNum) {
 		
 		int money = -1;

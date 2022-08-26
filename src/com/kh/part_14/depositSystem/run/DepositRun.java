@@ -8,8 +8,8 @@ public class DepositRun {
 		
 		BankView bv = new BankView();
 
-		bv.mainMenu();
-		// bv.depositMoney();
+		bv.loginMenu();
+		
 	}
 
 }
