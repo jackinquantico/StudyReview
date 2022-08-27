@@ -1,8 +1,10 @@
 package com.kh.part_14.studentManager.view;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.kh.part_14.studentManager.controller.StudentController;
+import com.kh.part_14.studentManager.model.vo.Student;
 
 public class StudentView {
 	
@@ -58,6 +60,15 @@ public class StudentView {
 		
 		System.out.println("학생 전체 정보를 출력합니다.");
 		
+		ArrayList<Student> list = stc.selectAll();
+		
+		if (list.isEmpty()) {
+			System.out.println("현재 리스트에 학생 정보가 존재하지 않습니다.");
+		} else {
+			for (Student s : list) {
+				System.out.println(s);
+			}
+		}
 		
 	}
 	
@@ -66,6 +77,10 @@ public class StudentView {
 		System.out.print("학생 학번을 입력하세요 : ");
 		int classNumber = sc.nextInt();
 		sc.nextLine();
+		
+		Student tmp = stc.selectOne(classNumber);
+		
+		System.out.println(tmp);
 		
 	}
 	
@@ -86,6 +101,12 @@ public class StudentView {
 		double grade = sc.nextDouble();
 		sc.nextLine();
 		
+		Student tmp = new Student(classNumber, name, age, address, grade);
+		
+		stc.insertStudent(tmp);
+		
+		System.out.println("학생 정보를 추가했습니다.");
+		
 	}
 	
 	public void updateStudent() {
@@ -103,12 +124,16 @@ public class StudentView {
 			int classNumber = sc.nextInt();
 			sc.nextLine();
 			
+			result = stc.updateStudent(name,classNumber);
+			
 		} else if (info.equals("이름")) {
 			System.out.print("변경할 학생 학번 입력 : ");
 			int classNumber = sc.nextInt();
 			sc.nextLine();
 			System.out.print("변경할 이름 입력 : ");
 			String name = sc.nextLine();
+			
+			result = stc.updateStudent(classNumber, name);
 			
 		} else if (info.equals("나이")) {
 			System.out.print("변경할 학생 학번 입력 : ");
@@ -118,20 +143,25 @@ public class StudentView {
 			int age = sc.nextInt();
 			sc.nextLine();
 			
+			result = stc.updateStudent(classNumber, age);
+			
 		} else if (info.equals("주소")) {
-			System.out.print("변경할 학생 학번 입력 : ");
-			int classNumber = sc.nextInt();
-			sc.nextLine();
+			System.out.print("변경할 학생 이름 입력 : ");
+			String name = sc.nextLine();
 			System.out.print("변경할 주소 입력 : ");
 			String address = sc.nextLine();
+			
+			result = stc.updateStudent(name, address);
 			
 		} else if (info.equals("학점")) {
 			System.out.print("변경할 학생 학번 입력 : ");
 			int classNumber = sc.nextInt();
 			sc.nextLine();
 			System.out.print("변경할 학점 입력 : ");
-			int grade = sc.nextInt();
+			double grade = sc.nextDouble();
 			sc.nextLine();
+			
+			result = stc.updateStudent(classNumber, grade);
 			
 		} else {
 			System.out.println("입력한 정보란이 존재하지 않습니다.");
@@ -152,6 +182,14 @@ public class StudentView {
 		System.out.print("삭제할 학생 학번 입력 : ");
 		int classNumber = sc.nextInt();
 		sc.nextLine();
+		
+		int result = stc.deleteStudent(classNumber);
+		
+		if (result > 0) {
+			System.out.println("삭제에 성공했습니다.");
+		} else {
+			System.out.println("삭제할 학생 정보가 존재하지 않습니다.");
+		}
 		
 	}
 }

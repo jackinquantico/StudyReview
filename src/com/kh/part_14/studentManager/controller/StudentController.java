@@ -34,9 +34,72 @@ public class StudentController {
 		list.add(tmp);
 	}
 	
-	public int updateStudent() {
+	public int updateStudent(String name, int classNumber) {
 		
 		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getName().equals(name)) {
+				list.get(i).setClassNumber(classNumber);
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	public int updateStudent(int classNumber, String name) {
+		
+		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getClassNumber() == classNumber) {
+				list.get(i).setName(name);
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	public int updateStudent(int classNumber, int age) {
+		
+		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getClassNumber() == classNumber) {
+				list.get(i).setAge(age);
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	public int updateStudent(String name, String address) {
+		
+		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getName().equals(name)) {
+				list.get(i).setAddress(address);
+				result++;
+			}
+		}
+		
+		return result;
+	}
+	
+	public int updateStudent(int classNumber, double grade) {
+		
+		int result = 0;
+		
+		for (int i=0; i<list.size(); i++) {
+			if (list.get(i).getClassNumber() == classNumber) {
+				list.get(i).setGrade(grade);
+				result++;
+			}
+		}
 		
 		return result;
 	}

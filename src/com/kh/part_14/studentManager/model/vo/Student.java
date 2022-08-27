@@ -62,7 +62,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [학번 : " + classNumber + ", 이름 : " + name + ", 나이 : " + age + ", 주소 : " + address
+		return "[학번 : " + classNumber + ", 이름 : " + name + ", 나이 : " + age + ", 주소 : " + address
 				+ ", 학점 : " + grade + "]";
 	}
 		
