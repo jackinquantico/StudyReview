@@ -59,5 +59,11 @@ public class Student {
 	public void setGrade(double grade) {
 		this.grade = grade;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Student [학번 : " + classNumber + ", 이름 : " + name + ", 나이 : " + age + ", 주소 : " + address
+				+ ", 학점 : " + grade + "]";
+	}
+		
 }
