@@ -1,13 +1,15 @@
 -- 22/08/26 작성 - 2, 3, 4, 5, 6, 7, 8, 9, 10, 11*, 12*, 13, 14, 15, 16, 17, 18*, 19, 20
 -- 22/08/27 작성 - 22, 24, 25*, 27, 28, 29*
--- 22/08/28 작성 - 30, 32, 33, 36, 37*, 38, 39, 40, 41, 43, 44, 45, 46*, 47, 48
--- 못 푼 문제 : 1, 11, 12, 18, 21, 23, 25, 26, 29, 31, 34, 35, 37, 42, 43
+-- 22/08/28 작성 - 1, 11, 12, 18, 21, 23, 25, 29, 30, 31, 32, 33, 36, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
+-- 못 푼 문제 :  26(다중열), 34(ROWNUM), 35(다중열), 37(UPDATE)
 
 -- [문제 1]
 --EMPLOYEE 테이블에서 12월 생일자에게 축하 메세지 보내기
 --결과: OOO님 12월 OO일 생일을 축하합니다! 
 
--- 보내기 기능 안 배움
+SELECT EMP_NAME || '님 12월 ' || SUBSTR(EMP_NO, 5, 2) || '일 생일을 축하합니다!'
+FROM EMPLOYEE
+WHERE SUBSTR(EMP_NO, 3, 2) = 12;
 
 ---------------------------------------------------------------------------------------------------
 --[문제 2]
@@ -195,23 +197,42 @@ SELECT MAX(SUM(SALARY)) "최고 급여 부서"
 FROM EMPLOYEE
 GROUP BY DEPT_CODE;
 
+SELECT MAX(SUM(SALARY)) "최고 급여 부서"
+FROM EMPLOYEE
+GROUP BY DEPT_CODE;
+
+SELECT DEPT_CODE "부서코드"
+            , COUNT(EMP_NAME)
+            , SUM(SALARY)
+FROM EMPLOYEE
+GROUP BY DEPT_CODE
+HAVING SUM(SALARY) = (SELECT MAX(SUM(SALARY)) "최고 급여 부서"
+                                            FROM EMPLOYEE
+                                            GROUP BY DEPT_CODE)
+UNION
+SELECT DEPT_CODE "부서코드"
+            , COUNT(EMP_NAME)
+            , SUM(SALARY)
+FROM EMPLOYEE
+GROUP BY DEPT_CODE
+HAVING SUM(SALARY) = (SELECT MIN(SUM(SALARY)) "최저 급여 부서"
+                                            FROM EMPLOYEE
+                                            GROUP BY DEPT_CODE);
+
+--> 나오긴 함
+
 ---------------------------------------------------------------------------------------------------
---[문제12] ********
+--[문제12]
 
 --EMPLOYEE 테이블에서 직급별
 --그룹을 편성하여 직급코드, 급여평균, 급여합계, 인원 수를 조회
 --단, 조회 결과는 급여평균 오름차순하여 출력, 인원수는 3명을 초과하는 직급만 조회
 
-/*
-SELECT JOB_CODE "직급 코드"
-            , ROUND(AVG(SALARY)) "급여 평균"
-            , SUM(SALARY) "급여 합계"
-            , COUNT(JOB_CODE) "인원 수"
+SELECT JOB_CODE, ROUND(AVG(SALARY)), SUM(SALARY), COUNT(EMP_NAME)
 FROM EMPLOYEE
 GROUP BY JOB_CODE
-HAVING COUNT(JOB_CODE) > 3
-ORDER BY SALARY ASC;
-*/
+HAVING COUNT(EMP_NAME) > 3
+ORDER BY AVG(SALARY) ASC;
 
 ---------------------------------------------------------------------------------------------------
 --[문제13]
@@ -309,19 +330,32 @@ WHERE EMP_NAME = '이태림';
 --사원번호,직급명, 사원명,부서명, 급여정보 조회
 
 -->> 오라클 전용 구문
-SELECT E.EMP_ID
+SELECT E1.EMP_ID
             , J.JOB_NAME
-            , E.EMP_NAME
+            , E1.EMP_NAME
             , D.DEPT_TITLE
-            , E.SALARY
-FROM EMPLOYEE E, JOB J, DEPARTMENT D
+            , E1.SALARY
+FROM EMPLOYEE E1, JOB J, DEPARTMENT D
+WHERE E1.JOB_CODE = J.JOB_CODE
+     AND E1.DEPT_CODE = D.DEPT_ID
+     AND E1.SALARY > (SELECT AVG(SALARY)
+                                   FROM EMPLOYEE E2
+                                   WHERE E2.JOB_CODE = E1.JOB_CODE); 
+-- 자신이 속한 직급을 어떻게 표현?? => E1, E2
+
+-->> ANSI 구문 -- 제대로 안 나옴
+SELECT E.EMP_ID, J.JOB_NAME, E.EMP_NAME, D.DEPT_TITLE, E.SALARY
+FROM EMPLOYEE E
+JOIN JOB J USING (JOB_CODE)
+JOIN DEPARTMENT D ON (DEPT_CODE = DEPT_ID)
+WHERE E.SALARY > (SELECT AVG(E2.SALARY)
+                                FROM EMPLOYEE E2
+                                JOIN EMPLOYEE E USING (JOB_CODE));
+
+SELECT AVG(SALARY)
+FROM EMPLOYEE E, JOB J
 WHERE E.JOB_CODE = J.JOB_CODE
-     AND E.DEPT_CODE = D.DEPT_ID
-     AND E.SALARY > (SELECT AVG(SALARY)
-                                   FROM EMPLOYEE); -- 자신이 속한 직급을 어떻게 표현?
-
--->> ANSI 구문
-
+     AND JOB_NAME = '차장';
 ---------------------------------------------------------------------------------------------------
 --[문제19]
 
@@ -354,6 +388,15 @@ ORDER BY TRUNC(AVG(SALARY)) DESC;
 --관리자가 없는 사원의 사번(EMP_ID), 이름(EMP_NAME), 직급(JOB_NAME), 부서이름(DEPT_TITLE), 급여(SALARY)를 조회하시오.
 --단,FROM 절에 서브쿼리 사용, JOIN은 오라클 구문 사용, 셀프 조인 사용
 
+SELECT EMP_ID, EMP_NAME, JOB_NAME, DEPT_TITLE, SALARY
+FROM EMPLOYEE E, JOB J, DEPARTMENT D
+WHERE E.JOB_CODE = J.JOB_CODE
+     AND E.DEPT_CODE = D.DEPT_ID
+     AND D.DEPT_TITLE != '해외영업2부'
+     AND SALARY > (SELECT ROUND(AVG(SALARY))
+                                FROM EMPLOYEE
+                                WHERE DEPT_CODE = 'D6');
+
 ---------------------------------------------------------------------------------------------------
 --[문제22] 
 
@@ -381,6 +424,14 @@ GROUP BY JOB_NAME;
 --입사일로부터 근무년수가 가장 긴 직원 상위 6명을
 --RANK()함수를 이용하여 조회하시오
 --사번, 사원명, 부서명, 직급명, 입사일을 조회하시오.
+
+SELECT EMP_ID, EMP_NAME, DEPT_TITLE, JOB_NAME
+            , RANK() OVER (ORDER BY (MONTHS_BETWEEN (SYSDATE, HIRE_DATE)) DESC) AS "입사일 순위"
+FROM EMPLOYEE E, DEPARTMENT, JOB J
+WHERE DEPT_CODE = DEPT_ID
+     AND E.JOB_CODE = J.JOB_CODE
+     AND ROWNUM <= 6;
+
 ---------------------------------------------------------------------------------------------------
 --[문제24]
 
@@ -413,7 +464,7 @@ HAVING MAX(SALARY) < 4000000;
 
 -- 부서별 최고 급여
 SELECT MAX(SALARY)
-FROM EMPLOYEE
+FROM EMPLOYEE E
 GROUP BY DEPT_CODE;
 
 -- 오라클 구문 조회
@@ -421,6 +472,9 @@ SELECT E.EMP_ID, E.EMP_NAME, D.DEPT_TITLE, J.JOB_NAME, E.DEPT_CODE, E.SALARY
 FROM EMPLOYEE E, JOB J, DEPARTMENT D
 WHERE E.JOB_CODE = J.JOB_CODE
      AND E.DEPT_CODE = D.DEPT_ID
+     AND SALARY = (SELECT MAX(SALARY)
+                                FROM EMPLOYEE
+                                GROUP BY DEPT_TITLE)
 ORDER BY SALARY DESC;
 
 -- ANSI 구문 조회
@@ -428,15 +482,17 @@ SELECT E.EMP_ID, E.EMP_NAME, D.DEPT_TITLE, J.JOB_NAME, E.DEPT_CODE, E.SALARY
 FROM EMPLOYEE E
 JOIN JOB J USING (JOB_CODE)
 JOIN DEPARTMENT D ON (DEPT_CODE = DEPT_ID)
+WHERE SALARY = (SELECT MAX(SALARY)
+                                FROM EMPLOYEE
+                                GROUP BY DEPT_TITLE)
 ORDER BY SALARY DESC;
-
---> 합치기?
 
 ---------------------------------------------------------------------------------------------------
 --[문제26]
 
 --'장쯔위'와 같은 연봉레벨, 같은 직급인 사원들의 
 --사원번호, 이름, 부서코드, 직급코드, 연봉레벨(SAL_LEVEL) 조회 (다중열 처리)
+
 ---------------------------------------------------------------------------------------------------
 --[문제27]
 
@@ -477,17 +533,14 @@ WHERE JOB_CODE = (SELECT JOB_CODE
 --사원번호, 사원명, 부서번호, 입사일을 조회하고 
 --문제에 있는 명칭대로 컬럼명을 지정하시오
 
-/* 못 품
 SELECT EMP_ID "사원번호"
             , EMP_NAME "사원명"
             , DEPT_CODE "부서번호"
             , HIRE_DATE "입사일"
-FROM EMPLOYEE
-GROUP BY DEPT_CODE
-HAVING HIRE_DATE = (SELECT MIN(HIRE_DATE)
-                                      FROM EMPLOYEE
-                                      GROUP BY DEPT_CODE);
-*/
+FROM EMPLOYEE E
+WHERE HIRE_DATE IN (SELECT MIN(HIRE_DATE) FROM EMPLOYEE GROUP BY DEPT_CODE);
+
+-->> 서브쿼리에 답이 있는 경우에는 IN 쓰기!!!!!!!
 
 ---------------------------------------------------------------------------------------------------
 --[문제 30]
@@ -510,8 +563,24 @@ WHERE 20 <= (MONTHS_BETWEEN (SYSDATE, HIRE_DATE) / 12)
 --단, 연봉순위는 DENSE_RANK() 사용, ANSI(JOIN) 구문 사용, 내림차순 정렬(연봉순위) 
 
 -->> 오라클 전용 구문
+SELECT EMP_NAME
+            , DENSE_RANK() OVER (ORDER BY SALARY DESC) "연봉 순위"
+            , SALARY
+            , NATIONAL_CODE
+FROM EMPLOYEE, DEPARTMENT, LOCATION
+WHERE DEPT_CODE = DEPT_ID
+     AND LOCATION_ID = LOCAL_CODE
+     AND NATIONAL_CODE = 'KO';
 
 -->> ANSI 구문
+SELECT EMP_NAME
+            , DENSE_RANK() OVER (ORDER BY SALARY DESC) "연봉 순위"
+            , SALARY "급여"
+            , L.NATIONAL_CODE "근무국가"
+FROM EMPLOYEE E
+JOIN DEPARTMENT D ON (DEPT_CODE = DEPT_ID)
+JOIN LOCATION L ON (LOCATION_ID = LOCAL_CODE)
+WHERE L.NATIONAL_CODE = 'KO';
 
 ---------------------------------------------------------------------------------------------------
 --[문제32] 
@@ -534,7 +603,6 @@ SELECT CASE WHEN JOB_CODE = 'J1' THEN TO_CHAR(MAX(SALARY))
 FROM EMPLOYEE
 GROUP BY JOB_CODE;
 
-
 ---------------------------------------------------------------------------------------------------
 --[문제 33]
 
@@ -554,6 +622,20 @@ ORDER BY SALARY DESC;
 
 --급여 평균이 3위안에 드는 직급을 찾아 직급코드, 직급명, 급여평군을 조회한 후
 -- ROWNUM과 라인뷰를 반영하여 조회하시오
+/*
+SELECT J.JOB_CODE, J.JOB_NAME, AVG(SALARY)
+FROM (SELECT DENSE_RANK() OVER (ORDER BY AVG(SALARY) DESC)
+            FROM EMPLOYEE E
+            WHERE ROWNUM <= 4
+            GROUP BY JOB_CODE) E
+JOIN JOB J USING (JOB_CODE);
+*/
+
+SELECT DENSE_RANK() OVER (ORDER BY AVG(SALARY) DESC), JOB_NAME
+FROM EMPLOYEE E
+JOIN JOB J USING (JOB_CODE)
+WHERE ROWNUM <= 4
+GROUP BY JOB_CODE, JOB_NAME;
 ---------------------------------------------------------------------------------------------------
 --[문제 35]
 
@@ -588,6 +670,11 @@ ORDER BY SALARY DESC;
 
 -- 찾는 것까지 완료
 SELECT EMP_NAME, EMP_NO
+            , CASE WHEN EMP_ID = '200' THEN REPLACE(EMP_NO, SUBSTR(EMP_NO, 1, 6), '621212')
+                        WHEN EMP_ID = '201' THEN REPLACE(EMP_NO, SUBSTR(EMP_NO, 1, 6), '631111')
+                        WHEN EMP_ID = '202' THEN REPLACE(EMP_NO, SUBSTR(EMP_NO, 1, 6), '861010')
+            ELSE EMP_NO
+            END "UPDATE"
 FROM EMPLOYEE
 WHERE EMP_ID IN ('200', '201', '202');
 
@@ -665,6 +752,13 @@ ORDER BY EMP_ID ASC;
 --부서별로 가장 월급을 적게 받는 사원명을 검색하시오
 --모든 컬럼을 조회하나, 부서별 내림차순으로 정렬하시오
 
+SELECT *
+FROM EMPLOYEE
+WHERE SALARY IN (SELECT MIN(SALARY)
+                                 FROM EMPLOYEE
+                                 GROUP BY DEPT_CODE)
+ORDER BY DEPT_CODE DESC;
+
 ---------------------------------------------------------------------------------------------------
 --[문제 43]
 
@@ -710,15 +804,19 @@ SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
 FROM DUAL;
 
 ---------------------------------------------------------------------------------------------------
---[문제 46] *********
+--[문제 46]
 
 --1995년 5월 1일 ~ 2000년 5월 1일 사이에 입사한 사원들의 
 --모든 정보를 부서번호순(오름차순)으로 검색하시오.
 
 SELECT *
 FROM EMPLOYEE
--- WHERE HIRE_DATE BETWEEN TO_DATE('1995-05-01', 'RRRR-MM-DD') AND TO_DATE('2000-05-01', 'RRRR-MM-DD')
+WHERE HIRE_DATE BETWEEN '1995/05/01' AND '2000/05/01'
+-- WHERE HIRE_DATE BETWEEN TO_DATE('1995/05/01', 'RRRR/MM/DD') AND TO_DATE('2000/05/01', 'RRRR/MM/DD')
 ORDER BY DEPT_CODE ASC;
+
+SELECT TO_DATE('00/05/01', 'RR/MM/DD')
+FROM DUAL;
 
 ---------------------------------------------------------------------------------------------------
 --[문제 47]
