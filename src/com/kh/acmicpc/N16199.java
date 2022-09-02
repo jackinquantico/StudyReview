@@ -18,33 +18,24 @@ public class N16199 {
 		int nd = sc.nextInt();
 		
 		int man = 0;
-		int se = 0;
-		int yeon = 0;
+		int se = ny-by+1;
+		int yeon = ny-by;
 		
-		if (bm == nm) { 
-			if (bd == nd) { // 생일인 경우
-				man = ny-by;
-				se = ny-by+1;
-				yeon = ny-by;
-			} else if (bd > nm) { // 안 지난 경우
-				man = ny-by-1;
-				se = ny-by+1;
-				yeon = ny-by;
-			} else { // 지난 경우
-				man = ny-by; // 1
-				se = ny-by+1; // 2
-				yeon = ny-by; // 1
+		if (by == ny) {
+			man = ny - by;
+		} else {
+			if (bm == nm) {
+				if (bd <= nd) {
+					man = ny - by;
+				} else {
+					man = ny - by - 1;
+				}
+			} else if (bm > nm) {
+				man = ny - by - 1;
+			} else {
+				man = ny - by;
 			}
-			
-		} else if (bm > nm) { // 안 지난 경우
-			man = ny-by-1; // 0
-			se = ny-by+1; // 2
-			yeon = ny-by; // 1
-		} else if (bm < nm) { // 지난 경우
-			man = ny-by; // 1
-			se = ny-by+1; // 2
-			yeon = ny-by; // 1
-		} 
+		}
 		
 		System.out.println(man);
 		System.out.println(se);
