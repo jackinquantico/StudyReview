@@ -1,2 +1,8 @@
 /bin/
 /zed-code/
+/.metadata/
+*.bin
+*.map
+*.elf
+*.a
+*.prefs
