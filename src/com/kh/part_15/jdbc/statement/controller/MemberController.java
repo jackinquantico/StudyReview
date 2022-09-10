@@ -2,6 +2,8 @@ package com.kh.part_15.jdbc.statement.controller;
 
 import java.util.ArrayList;
 
+import org.omg.CORBA.IRObject;
+
 import com.kh.part_15.jdbc.statement.model.dao.MemberDao;
 import com.kh.part_15.jdbc.statement.model.vo.Member;
 import com.kh.part_15.jdbc.statement.view.MemberView;
@@ -107,6 +109,20 @@ public class MemberController {
 		} else {
 			new MemberView().displayFail("정보 변경 실패");
 		}
+	}
+	
+	public void deleteMember(String userId) {
+		
+		// VO 객체 가공 패스
+		// Dao 단으로 넘기기
+		int result = new MemberDao().deleteMember(userId);
+		
+		if (result > 0) {
+			new MemberView().displaySuccess("회원 탈퇴 성공");
+		} else {
+			new MemberView().displayFail("회원 탈퇴 실패");
+		}
+		
 	}
 	
 }
