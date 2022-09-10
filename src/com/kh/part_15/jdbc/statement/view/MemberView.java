@@ -47,6 +47,9 @@ public class MemberView {
 			case 5:
 				updateMember();
 				break;
+			case 6:
+				deleteMember();
+				break;
 			case 0:
 				System.out.println("ÇÁ·Î±×·¥ Á¾·á");
 				return;
@@ -157,6 +160,16 @@ public class MemberView {
 		
 		mc.updateMember(userId, userPwd, email, address, hobby);
 		
+	}
+	
+	public void deleteMember() {
+		
+		System.out.println("----- È¸¿ø Å»Åð -----");
+		
+		System.out.print("Å»ÅðÇÒ È¸¿ø ¾ÆÀÌµð : ");
+		String userId = sc.nextLine();
+		
+		mc.deleteMember(userId);
 	}
 	
 	// --------------------------------------------------
