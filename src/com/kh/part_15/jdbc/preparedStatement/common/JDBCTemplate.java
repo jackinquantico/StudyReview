@@ -1,10 +1,14 @@
 package com.kh.part_15.jdbc.preparedStatement.common;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class JDBCTemplate {
 	
@@ -12,10 +16,18 @@ public class JDBCTemplate {
 		
 		Connection conn = null;
 		
+		Properties prop = new Properties();
+		
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			prop.load(new FileInputStream("resources/driver.properties"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+		try {
+			Class.forName(prop.getProperty("driver"));
 			
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","JDBC","JDBC");
+			conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("username"), prop.getProperty("password"));
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
