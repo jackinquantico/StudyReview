@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Oracle Query</comment>
+
+<entry key="insertBoard">
+INSERT INTO BOARD
+VALUES (SEQ_BOARD.NEXTVAL, ?, ?, DEFAULT, ?, DEFAULT)
+</entry>
+
+<entry key="selectAll">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER 
+WHERE WRITER = USERNO AND DELETE_YN = 'N' ORDER BY BNO
+</entry>
+
+<entry key="selectByTitle">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER
+WHERE WRITER = USERNO
+    AND TITLE LIKE '%' || ? || '%'
+</entry>
+
+<entry key="selectByUserId">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER
+WHERE WRITER = USERNO AND USERID = ?
+</entry>
+
+<entry key="selectByContent">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER
+WHERE WRITER = USERNO AND CONTENT LIKE '%' || ? || '%'
+</entry>
+
+<entry key="selectByCreateDate">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER
+WHERE WRITER = USERNO
+     AND TO_CHAR(CREATE_DATE, 'MMDD') = ?
+</entry>
+
+<entry key="selectBoard">
+SELECT BNO, TITLE, CONTENT, CREATE_DATE, USERID
+FROM BOARD, MEMBER
+WHERE WRITER = USERNO AND BNO = ? AND DELETE_YN = 'N'
+</entry>
+
+<entry key="updateBoard">
+UPDATE BOARD
+SET TITLE = ?, CONTENT = ?
+WHERE BNO = ?
+</entry>
+
+<entry key="deleteBoard">
+UPDATE BOARD
+SET DELETE_YN = 'Y'
+WHERE BNO = ?
+</entry>
+
+</properties>
