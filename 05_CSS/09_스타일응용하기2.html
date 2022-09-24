@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>입력양식연습</title>
+    <style>
+        body {
+            margin: auto;
+            margin-top: 20px;
+            width: 300px;
+            background-color: #33441b;
+
+        }
+
+        #info {
+            background-color: #efefdf;
+            padding: 20px 20px;
+            box-shadow: 5px 5px 5px 0px black;
+            border-radius: 15px;
+        }
+
+        #info div {
+            margin: auto;
+        }
+
+        #title {
+            text-align: center;
+            font-size: 24px;
+            color: #33441b
+        }
+
+        .btns {
+            text-align: center;
+        }
+
+        .btns input[type=reset]:hover, .btns input[type=submit]:hover {
+            background-color: white;
+            color: black;
+            font-weight: 800;
+        }
+
+        .btns input[type=reset]:active, .btns input[type=submit]:active {
+            background-color: gray;
+            color:white;
+        }
+
+        .btns input[type=reset] {
+            background-color: #737759;
+            border-radius: 5px;
+            color: white;
+            width: 80px;
+            height: 30px;
+            border: 1px solid #737759;
+        }
+
+        .btns input[type=submit] {
+            background-color: #33441b;            
+            border-radius: 5px;
+            color: white;
+            width: 80px;
+            height: 30px;
+            border: 1px solid #33441b;
+            font-weight: 500;
+        }
+
+        input[type=text]:focus, input[type=email]:focus, input[type=url]:focus, input[type=number]:focus, textarea:focus {
+            background-color: #737759;
+            color: #efefdf;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h2 id="title">납품 작성 양식</h2>
+        <form action="test.do">
+            <div>
+                <h3>납품자 정보</h3>
+                <table>
+                    <tr>
+                        <td><label for="u_name">납품자명</label></td>
+                        <td><input type="text" name="u_name" placeholder="ex) 홍길동"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="u_mail">email</label></td>
+                        <td><input type="email" name="u_mail" placeholder="ex)ex@ex.com"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="u_home">홈페이지</label></td>
+                        <td><input type="url" name="u_home" placeholder="http://"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <hr>
+            <div>
+                <h3>납품 정보</h3>
+                <table>
+                    <tr>
+                        <td><label for="p_name">상품명</label></td>
+                        <td><input type="text" name="p_name"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="p_count">납품수량</label></td>
+                        <td><input type="number" name="p_count" placeholder="최소100" min="100"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="p_grade">납품등급</label></td>
+                        <td><input type="range" name="p_grade" min="0" max="10" value="6"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="p_etc">기타사항</label></td>
+                        <td><textarea name="p_etc" cols="22" rows="3" style="resize:none;"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="btns">
+                <input type="reset" value="초기화">
+                <input type="submit" value="전송">
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
+
+</html>
