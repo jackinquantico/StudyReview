@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>선택자 우선순위</title>
+        <style>
+            h1 {
+                background-color: pink;
+                color: yellow;
+            }
+            h1 {
+                color: red;
+            }
+
+            #id1 {
+                background-color: maroon;
+            }
+            .class1 {
+                background-color: yellowgreen; /* 우선순위에 의해 나타나지 않음 */
+                color : white;
+            }
+
+            div {
+                background-color: teal !important; /* 우선순위가 낮아서 나타나지 않음 */
+                color: red !important; /* 우선순위가 낮아서 나타나지 않음 */
+                width: 200px;
+                height: 200px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        
+        <h1>선택자 우선순위</h1>
+
+        <p>
+            기본적으로 css 는 위에서부터 아래로 적용됨 <br>
+            동일한 요소를 같은 종류의 선택자로 선택했을 경우 가장 아래의 스타일이 적용됨 <br>
+            단, 동일한 요소를 다양한 종류의 선택자로 css 가 부여된 경우 우선순위에 따라서 적용됨 <br>
+
+            태그선택자 -> 클래스선택자 -> 아이디선택자 -> 인라인스타일방식 -> !important <br>
+           
+            만약 겹치지 않는 스타일이라면 반영이 잘 됨.
+        </p>
+
+        <!-- 에밋 문법 : div#id값.class값 + Enter -->
+        <div id="id1" class="class1" style="background-color: purple; color:pink;">우선순위 테스트</div>
+
+
+    </body>
+</html>
