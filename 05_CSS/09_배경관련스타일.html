@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>배경 관련 스타일</title>
+        <style>
+            
+            body {
+                background-color: skyblue;
+                /* body 의 자식 요소인 h1, h3, div 는 모두 투명색 => 기본값이 투명 */
+            }
+
+            #div-bg {
+                background-color: white;
+                border: 30px solid blue;
+                padding: 20px;
+                width: 50%;
+                /* div 의 content 의 가로길이는 부모요소인 body의 50%로 지정하겠다 */
+                box-sizing: border-box;
+                /* 가로 길이를 border 까지 포함해서 지정하겠다는 뜻 */
+            }
+
+            .div-test {
+                margin: 30px;
+                border: 10px dashed;
+                padding: 20px;
+                background-color: yellow;
+                /* 배경색이 border (테두리) 부분까지 적용됨 => background-clip 속성 기본값이 border-box */
+            }
+
+            #div1 {
+                background-clip: border-box;
+            }
+
+            #div2 {
+                background-clip: padding-box;
+                /* 배경색이 padding 부분까지 적용됨 */
+            }
+
+            #div3 {
+                background-clip: content-box;
+                /* 배경색이 content 영역까지 적용됨 */
+            }
+
+            #bg-img {
+                border: 1px solid black;
+                width: 70%;
+                height: 800px;
+
+                background-image: url("resources/image/bono.jpg");
+                background-repeat: no-repeat; /* repeat 가 기본값 */
+                background-size: auto; /* contain : 가로 세로 상관없이 둘 중 하나가 가득 찰 때까지 크기를 맞춰줌 */
+                background-position: center center; /* 50% 50% 와 같은 효과 */
+                background-attachment: fixed; /* scroll 이 기본값 */
+                /* fixed : 스크롤 이동이 있어도 그 자리 그대로 고정 */
+            }
+
+        </style>
+    </head>
+    <body>
+        
+        <h1>배경 관련 스타일 (background~)</h1>
+
+        <h3>background-color : 배경색을 지정할 때 사용</h3>
+
+        <div id="div-bg">
+            노루, 보고, 했던 있습니다. 다하지 소녀들의 위에 불러 어머님, 있습니다. 어머니, 이런 멀리 하나에 계십니다. 책상을 묻힌 노새, 사랑과 있습니다. 이런 계집애들의 불러 때 오면 가을 봅니다. 걱정도 겨울이 내 아무 계십니다. 비둘기, 아스라히 이제 이름을 북간도에 까닭이요, 다하지 봅니다. 이국 된 불러 보고, 묻힌 아직 거외다. 멀리 노새, 하나의 까닭입니다.
+
+            밤을 하늘에는 토끼, 묻힌 말 다 않은 계십니다. 위에도 헤일 별에도 무성할 별들을 이름자 하늘에는 강아지, 가난한 까닭입니다. 별 없이 이름자를 벌레는 까닭입니다. 소학교 소녀들의 별들을 속의 까닭입니다. 가을로 잠, 지나고 부끄러운 잔디가 패, 그리워 다하지 있습니다. 하나에 멀듯이, 하나에 헤는 토끼, 것은 다 다하지 아침이 까닭입니다. 이름을 마디씩 불러 때 하나에 까닭입니다. 이국 별빛이 나의 나는 헤일 딴은 봅니다. 별 하나에 부끄러운 아스라히 덮어 멀리 봅니다. 다하지 새워 까닭이요, 걱정도 보고, 봅니다.
+        </div>
+
+        <br>
+
+        <h3>background-clip : 배경을 적용시키고자 하는 범위를 지정할 때 사용</h3>
+        <pre>
+            [ 표현법 ]
+            선택자 {
+                background-clip : border-box (기본값) / padding-box / content-box;
+            }
+        </pre>
+
+        <!-- div.div-test#div$*3 + Enter -->
+        <div class="div-test" id="div1">
+            노루, 보고, 했던 있습니다. 다하지 소녀들의 위에 불러 어머님, 있습니다. 어머니, 이런 멀리 하나에 계십니다. 책상을 묻힌 노새, 사랑과 있습니다. 이런 계집애들의 불러 때 오면 가을 봅니다. 걱정도 겨울이 내 아무 계십니다. 비둘기, 아스라히 이제 이름을 북간도에 까닭이요, 다하지 봅니다. 이국 된 불러 보고, 묻힌 아직 거외다. 멀리 노새, 하나의 까닭입니다.
+        </div>
+        <div class="div-test" id="div2">
+            노루, 보고, 했던 있습니다. 다하지 소녀들의 위에 불러 어머님, 있습니다. 어머니, 이런 멀리 하나에 계십니다. 책상을 묻힌 노새, 사랑과 있습니다. 이런 계집애들의 불러 때 오면 가을 봅니다. 걱정도 겨울이 내 아무 계십니다. 비둘기, 아스라히 이제 이름을 북간도에 까닭이요, 다하지 봅니다. 이국 된 불러 보고, 묻힌 아직 거외다. 멀리 노새, 하나의 까닭입니다.
+        </div>
+        <div class="div-test" id="div3">
+            노루, 보고, 했던 있습니다. 다하지 소녀들의 위에 불러 어머님, 있습니다. 어머니, 이런 멀리 하나에 계십니다. 책상을 묻힌 노새, 사랑과 있습니다. 이런 계집애들의 불러 때 오면 가을 봅니다. 걱정도 겨울이 내 아무 계십니다. 비둘기, 아스라히 이제 이름을 북간도에 까닭이요, 다하지 봅니다. 이국 된 불러 보고, 묻힌 아직 거외다. 멀리 노새, 하나의 까닭입니다.
+        </div>
+        
+        <hr>
+
+        <h3>배경이미지 테스트</h3>
+        <pre>
+            [ 표현법 ]
+            선택자 {
+                background-image : url("이미지경로");
+                background-repeat : repeat / repeat-x / repeat-y / no-repeat;
+                background-size : auto(원본 크기 유지) / contain(딱 맞게) / cover(꽉 채우고 남은 부분 자르기) / 가로길이(px/%);
+                background-position : 좌 / 우 / 가운데 중 1개 위 / 아래 / 가운데 중 1개 또는 x좌표 y좌표;
+                background-attachment : scroll / fixed;
+            }
+        </pre>
+
+        <div id="bg-img"></div>
+
+    </body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
