@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 폼 만들기</title>
+    <style>
+
+        /* 작업을 위한 임시스타일 */
+        div {
+            /* border: 1px solid red; */
+            box-sizing: border-box;
+        }
+        #content_3 {
+            width: 300px;
+            height: 600px;
+        }
+
+        /* form 태그에 border-box 추가 */
+        form { box-sizing: border-box; }
+
+        /* 1. 전체내용을 감싸는 div에 대한 스타일 */
+        #login_form {
+            width: 100%;
+            height: 30%;
+            /* border: 1px solid blue; */
+        }
+
+        /* 2. login_form 의 모든 자식요소들에 대한 공통 속성 : 가로길이 */
+        #login_form>* { 
+            width: 100%; 
+            /* border: 1px solid green; */
+        }
+
+        /* 2_1. login_form의 자식 form 태그에 대한 개별속성 : 세로길이 */
+        #login_form_input { height: 80%; }
+        /* 2_2. login_form의 자식 div 태그에 대한 개별속성 : 세로길이 */
+        #login_form_etc { 
+            height: 20%;
+            text-align: center; /* 자식 태그인 a 태그가 가운데 정렬하려면 부모요소에 해줘야 함 */
+        }
+
+        /* 3. login_form_input의 모든 자식들의 공통 속성 : 세로길이, 가로배치 */
+        #login_form_input>* {
+            height: 100%;
+            float: left;
+            /* border: 1px solid purple; */
+        }
+
+        /* 3_1. login_form_input의 첫번째 자식 div 태그 속성 : 가로길이 */
+        #login_input_id_pwd { width: 65%; }
+        /* 3_2. login_form_input의 두번째 자식 div 태그 속성 : 가로길이 */
+        #login_input_btn { width: 35%; }
+
+        /* 2_2의 자식 태그들인 a 태그에 대해 속성 지정 */
+        #login_form_etc>a {
+            text-decoration: none;
+            color: black;
+            margin: 10px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        /* 3_1의 모든 자식요소들인 input 태그들에 대해 스타일 지정 */
+        #login_input_id_pwd>input {
+            width: 100%;
+            height: 50%;
+            box-sizing: border-box;
+        }
+
+        /* 3_2의 자식요소인 input 태그들에 대해 스타일 지정 */
+        #login_input_btn>input {
+            width: 100%;
+            height: 100%;
+            /* box-sizing: border-box; -> 생략 가능 */
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div id="content_3">
+        
+        <!-- 1. 전체 내용을 감싸는 div -->
+        <div id="login_form">
+            <!-- 2_1. 입력을 받는 input 요소들이 위치할 form 영역 -->
+            <form id="login_form_input" action="test.do" method="post"> <!-- method : post, 민감 정보 -->
+                <!-- 3_1. 왼 : 아이디/비밀번호 입력할 수 있는 text 영역 -->
+                <div id="login_input_id_pwd">
+                    <input type="text" name="userId" placeholder="아이디를 입력하세요" required> <br>
+                    <input type="password" name="userPwd" placeholder="비밀번호를 입력하세요" required>
+                </div>
+
+                <!-- 3_2. 오 : 로그인 버튼이 위치할 button 영역 -->
+                <div id="login_input_btn">
+                    <input type="submit" value="로그인">
+                </div>
+            </form>
+
+            <!-- 2_2. 회원가입, ID/PWD 찾기 페이지 요청을 할 수 있는 div 영역 -->
+            <div id="login_form_etc">
+                <a href="">회원가입</a>
+                <a href="">ID/PWD 찾기</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
