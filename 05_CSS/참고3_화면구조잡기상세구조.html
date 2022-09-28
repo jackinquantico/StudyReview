@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화면 구조 잡기 상세 구조</title>
+    <style>
+        div {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        .wrap {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+        }
+
+        /* header, navigator, content, footer의 공통적인 속성인 가로길이 100%*/
+        .wrap>div { width: 100%; }
+
+        /* header, navigator, content, footer의 개별 속성 : 세로길이 각각 */
+        #header, #footer { height: 20%; }
+        #navigator { height: 5%; }
+        #content { height: 55%; }
+        
+        /* header의 자식, content의 자식 div의 공통 속성 : 세로길이 100%, float 속성(가로로 배치) */
+        #header>div, #content>div {
+            height: 100%;
+            float: left;
+        }
+
+        /* header의 자식, content의 자식 div의 개별 속성 : 가로길이 */
+        #header_1 { width: 20%; }
+        #header_2 { width: 65%; }
+        #header_3 { width: 15%; }
+
+        #content_1 { width: 15%; }
+        #content_2 { width: 60%; }
+        #content_3 { width: 25%; }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+
+        <div id="header">
+            <div id="header_1"></div>
+            <div id="header_2"></div>
+            <div id="header_3"></div>
+        </div>
+
+        <div id="navigator"></div>
+
+        <div id="content">
+            <div id="content_1"></div>
+            <div id="content_2"></div>
+            <div id="content_3"></div>
+        </div>
+
+        <div id="footer"></div>
+
+    </div>
+    
+</body>
+</html>
