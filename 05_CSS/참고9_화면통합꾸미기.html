@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>화면 통합</title>
+    <style>
+        /* ------- 화면 구조 잡는데 필요한 스타일들 ------- */
+        div {
+            /* border: 1px solid lightgray; */
+            box-sizing: border-box;
+        }
+
+        /* 전체를 감싸는 wrap */
+        .wrap {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+        }
+
+        /* header, navigator, content, footer의 공통적인 속성인 가로길이 100%*/
+        .wrap>div { width: 100%; }
+
+        /* header, navigator, content, footer의 개별 속성 : 세로길이 각각 */
+        #header, #footer { height: 20%; }
+        #navigator { height: 5%; }
+        #content { height: 55%; }
+        
+        /* header의 자식, content의 자식 div의 공통 속성 : 세로길이 100%, float 속성(가로로 배치) */
+        #header>div, #content>div {
+            height: 100%;
+            float: left;
+        }
+
+        /* header의 자식, content의 자식 div의 개별 속성 : 가로길이 */
+        #header_1 { width: 20%; }
+        #header_2 { width: 65%; }
+        #header_3 { width: 15%; }
+
+        #content_1 { width: 15%; }
+        #content_2 { width: 60%; }
+        #content_3 { width: 25%; }
+        /* ------------------------------------- */
+
+        /* ------- footer 에 관련된 스타일 -------*/
+        /* footer의 자식 div 태그에 대한 공통 속성 : 가로길이 100% */
+        #footer>div { width: 100%; }
+
+        /* footer의 자식 div 태그에 대한 개별 속성 : 세로길이 */
+        #footer_1 { height: 20%; padding-top: 7px;}
+        #footer_2 { height: 80%; }
+
+        /* footer_2의 자식 p 태그에 대한 공통 속성 : 가로길이 100% */
+        #footer_2>p {
+            width: 100%;
+            /* border: 1px solid blue; */
+            margin: 0px; /* p 태그에는 기본적으로 위, 아래 마진이 있음 -> 없애주기 */
+            box-sizing: border-box; /* 테두리까지 width, height에 포함시킬 것 */
+            font-size: 12px;/* 글자 크기 줄이기 */
+        }
+
+        /* footer_2의 자식 p 태그에 대한 개별 속성 : 세로길이 */
+        #p1 { 
+            height: 80%; 
+            padding: 5px 15px; /* 패딩으로 상하좌우 여백 넣어보기 */
+        }
+        #p2 { 
+            height: 20%; 
+            text-align: center;
+        }
+
+        /* a 태그들에 대한 속성 */
+        #footer_1>a {
+            text-decoration: none;
+            color: #f7941e;
+            font-weight: 600;
+            margin: 15px;
+            vertical-align: middle; /* 수직 구조에서 가운데로 오게끔 해주는 속성 */
+        }
+
+        #footer {
+            background: #424242;
+            color: white;
+        }
+
+        /* ------------------------------------- */
+
+        /* ------- 로그인 폼과 관련된 스타일 -------*/
+        /* form 태그에 border-box 추가 */
+        form { box-sizing: border-box; }
+
+        /* 1. 전체내용을 감싸는 div에 대한 스타일 */
+        #login_form {
+            width: 100%;
+            height: 30%;
+            /* border: 1px solid blue; */
+        }
+
+        /* 2. login_form 의 모든 자식요소들에 대한 공통 속성 : 가로길이 */
+        #login_form>* { 
+            width: 100%; 
+            /* border: 1px solid green; */
+        }
+
+        /* 2_1. login_form의 자식 form 태그에 대한 개별속성 : 세로길이 */
+        #login_form_input { height: 80%; }
+        /* 2_2. login_form의 자식 div 태그에 대한 개별속성 : 세로길이 */
+        #login_form_etc { 
+            height: 20%;
+            text-align: center; /* 자식 태그인 a 태그가 가운데 정렬하려면 부모요소에 해줘야 함 */
+        }
+
+        /* 3. login_form_input의 모든 자식들의 공통 속성 : 세로길이, 가로배치 */
+        #login_form_input>* {
+            height: 100%;
+            float: left;
+            /* border: 1px solid purple; */
+        }
+
+        /* 3_1. login_form_input의 첫번째 자식 div 태그 속성 : 가로길이 */
+        #login_input_id_pwd { width: 60%; margin-right: 5px;}
+        /* 3_2. login_form_input의 두번째 자식 div 태그 속성 : 가로길이 */
+        #login_input_btn { width: 35%; }
+
+        /* 2_2의 자식 태그들인 a 태그에 대해 속성 지정 */
+        #login_form_etc>a {
+            text-decoration: none;
+            color: black;
+            margin: 10px;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        /* 3_1의 모든 자식요소들인 input 태그들에 대해 스타일 지정 */
+        #login_input_id_pwd>input {
+            width: 95%;
+            height: 50%;
+            margin-bottom: 2px;
+            box-sizing: border-box;
+        }
+
+        /* 3_2의 자식요소인 input 태그들에 대해 스타일 지정 */
+        #login_input_btn>input {
+            width: 100%;
+            height: 100%;
+            /* box-sizing: border-box; -> 생략 가능 */
+            background-color: #f7941e;
+            border-radius: 10px;
+            border: none;
+            font-size: 15px;
+            color: white;
+            font-weight: 900;
+        }        
+        /* ------------------------------------- */
+
+        /* ---------- 검색창 관련 스타일 -----------*/
+        /* position 속성에서 기준점으로 잡아줄 부모요소 */
+        #header_2 {
+            position: relative;
+        }
+
+        /* form 태그에 대한 스타일 */
+        #search_form {
+            width: 80%;
+            height: 20%;
+            /* border: 1px solid blue; */
+            margin: auto;
+            position: absolute;
+            right: 0px;
+            left: 0px;
+            bottom: 0px;
+            top: 0px;
+        }
+
+        /* 전체 검색창 내부의 상세 div에 대한 스타일 */
+        #search_form>div {
+            height: 100%;
+            float: left;
+            /* border: 1px solid green; */
+        }
+
+        #search_text { width: 80%; }
+        #search_btn { 
+            width: 20%; 
+        }
+        #search_btn>input {
+            background-color: #f7941e;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+        }
+        
+        /* form 태그의 모든 후손 중 input 요소들만 골라내기 */
+        #search_form input { 
+            width: 100%;
+            height: 100%;
+        }
+        #search_text>input {
+            border-radius: 5px;
+            border: none;
+            width: 99%;
+        }
+        #search_text>input:focus {
+            color : #f7941e;
+        }        
+        /* ------------------------------------- */
+
+        /* --------- 메뉴바 관련 스타일 --------- */
+        /* 메인 메뉴를 담당하는 navi 에 대한 스타일 */
+        #navigator {
+            margin-bottom: 10px;
+        }
+
+        #navi {
+            background-color: #424242;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            /* border: 1px solid blue; */
+            list-style-type: none;
+            margin: 0px; /* ul요소도 기본적으로 위아래 margin이 존재 */
+            padding: 0px; /* ul요소는 기본적으로 padding도 갖고 있음 */
+            height: 100%;
+        }
+
+        /* 각각의 메인메뉴 항목을 담당하는 li 태그에 대한 스타일 */
+        #navi>li {
+            /* border: 1px solid blue; */
+            float: left; /* 블럭요소가 가로로 배치될 수 있게 */
+            width: 15%;
+            height: 100%;
+            text-align: center;
+        }
+
+        /* 메뉴바에 있는 모든 a 태그들을 일괄 선택하여 스타일 부여 */
+        #navi a {
+            /* border: 1px solid green; */
+            text-decoration: none;
+            color: #f7941e;
+            font-size: 13px;
+            font-weight: 900;
+            width: 100%;
+            height: 100%;
+            display: block; /* a 태그는 인라인요소이기 때문에 width, height 속성 적용 X -> block 요소화 */
+            /* vertical-align: middle; 속성은 인라인 요소일 때만 쓸 수 있는 속성 */
+            line-height: 35px; /* 장평 조절 속성 */
+
+            /*
+                화면 통합 시 이슈 발생
+                메인메뉴와 서브 메뉴 사이의 연결이 살짝 끊김
+                => transform (animation 효과를 줄 수 있는) 속성 추가
+                transform : scale(1); => 1배 확대하겠다.
+            */
+            transform: scale(1);
+        }
+
+        /* 메뉴에 마우스가 올라갔을 때 추가적인 효과 */
+        #navi a:hover {
+            color: #000080;
+            font-size: 15px;
+        }
+
+        /* 서브메뉴를 담당하는 ul 태그에 대한 스타일 */
+        #navi>li>ul {
+            list-style-type: none;
+            padding: 0px;
+            display: none; /* 평소에는 숨겨져있다가 마우스가 올라가는 순간 보여주기 */
+        }
+
+        /* 메인메뉴에 마우스가 올라가는 순간 서브메뉴가 펼쳐져서 보이게 */
+        #navi>li>a:hover+ul { /* 동위선택자 */
+            display: block; /* 메인메뉴에 마우스가 올라갔을 때만 유지됨 */
+        }
+
+        /* 서브메뉴에도 마우스가 올라갔을 때 펼쳐진 게 유지될 수 있게 */
+        #navi>li>ul:hover {
+            display:block;
+        }
+
+        /* 서브메뉴 글씨만 좀 더 작게 보이게 */
+        #navi>li>ul a { font-size: 10px; }
+        #navi>li>ul a:hover { font-size: 13px; }
+        /* ------------------------------------- */
+
+        /* ------------ 로고 스타일 ------------- */
+        #header_1 { position: relative; } /* 로고 이미지 이동을 위한 기준점 (부모 요소) */
+
+        #logo {
+            margin: auto;
+            position: absolute;
+            bottom: 0px;
+            top: 0px;
+            right: 0px;
+            left: 0px;
+            height: 100%;
+        }
+        /* ------------------------------------- */
+
+        #header_2, #header_3 {
+            border: none;
+            background-color: gray;
+        }
+
+        #login_input_id_pwd>input {
+            background-color: white;
+            border: #424242 1px solid;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+
+        <div id="header">
+            <div id="header_1">
+
+                <a href="">
+                    <img src="resources/image/eclipse.jpg" id="logo">
+                </a>
+
+            </div>
+            <div id="header_2">
+
+                <form id="search_form" action="test.do" method="get">
+                    <div id="search_text">
+                        <input type="search" name="keyword">
+                    </div>
+                    <div id="search_btn">
+                        <input type="submit" value="검색">
+                    </div>
+                </form>
+
+            </div>
+            <div id="header_3"></div>
+        </div>
+
+        <div id="navigator">
+
+            <ul id="navi">
+                <!-- (li>a)*5 + Enter -->
+                <li><a href="">Java</a></li>
+    
+                <li><a href="">Oracle</a></li>
+    
+                <li>
+                    <a href="">Front-end</a>
+                    <ul>
+                        <li><a href="">HTML</a></li>
+                        <li><a href="">CSS</a></li>
+                        <li><a href="">JavaScript</a></li>
+                        <li><a href="">jQuery</a></li>
+                    </ul>
+                </li>
+    
+                <li>
+                    <a href="">Server</a>
+                    <ul>
+                        <li><a href="">JDBC</a></li>
+                        <li><a href="">Servlet</a></li>
+                        <li><a href="">JSP</a></li>
+                        <li><a href="">Ajax</a></li>
+                    </ul>
+                </li>
+    
+                <li>
+                    <a href="">Framework</a>
+                    <ul>
+                        <li><a href="">MyBatis</a></li>
+                        <li><a href="">Spring</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+
+        <div id="content">
+            <div id="content_1"></div>
+            <div id="content_2">
+                <iframe width="97%" height="97%" src="https://www.youtube.com/embed/A69209AzrQo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div id="content_3">
+                
+                <!-- 1. 전체 내용을 감싸는 div -->
+                <div id="login_form">
+                    <!-- 2_1. 입력을 받는 input 요소들이 위치할 form 영역 -->
+                    <form id="login_form_input" action="test.do" method="post"> <!-- method : post, 민감 정보 -->
+                        <!-- 3_1. 왼 : 아이디/비밀번호 입력할 수 있는 text 영역 -->
+                        <div id="login_input_id_pwd">
+                            <input type="text" name="userId" placeholder="아이디를 입력하세요" required> <br>
+                            <input type="password" name="userPwd" placeholder="비밀번호를 입력하세요" required>
+                        </div>
+
+                        <!-- 3_2. 오 : 로그인 버튼이 위치할 button 영역 -->
+                        <div id="login_input_btn">
+                            <input type="submit" value="로그인">
+                        </div>
+                    </form>
+
+                    <!-- 2_2. 회원가입, ID/PWD 찾기 페이지 요청을 할 수 있는 div 영역 -->
+                    <div id="login_form_etc">
+                        <a href="">회원가입</a>
+                        <a href="">ID/PWD 찾기</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="footer">
+
+            <div id="footer_1">
+                <a href="">이용약관</a> |
+                <a href="">개인정보취급방침</a> |
+                <a href="">인재채용</a> |
+                <a href="">고객센터</a>
+            </div>
+    
+            <div id="footer_2">
+                <!-- p 는 블럭요소라 영역 나누기 가능 -->
+                <p id="p1">
+                    강남지원 1관 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F <br>
+                    강남지원 2관 : 서울특별시 강남구 테헤란로10길 9 그랑프리 빌딩 4F, 5F, 7F <br>
+                    강남지원 3관 : 서울특별시 강남구 테헤란로 130 호산빌딩 5F, 6F <br>
+                    종로지원 : 서울특별시 중구 남대문로 120 대일빌딩 2F, 3F <br>
+                    당산지원 : 서울특별시 영등포구 선유동2로 57 이레빌딩 (구관) 19F, 20F
+                </p>
+                <p id="p2">
+                    Copyright © 1998-2022 KH Information Educational Institute All Right Reserved
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>
