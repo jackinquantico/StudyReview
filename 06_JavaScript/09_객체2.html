@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체 2</title>
+    <style>
+        .area {
+            background-color: lightblue;
+            border: 1px solid black;
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>객체 2</h1>
+    
+    <h3>* 객체 배열을 이용한 다량의 데이터 관리</h3>
+
+    <button onclick="test1();">실행확인</button>
+    <div id="area1" class="area"></div>
+
+    <script>
+        function test1() {
+
+            // 테스트용 학생 객체 생성
+            var student0 = { name: "김갑생", java: 100, oracle: 90, html: 90, css: 60 };
+            var student1 = { name: "김말똥", java: 60, oracle: 100, html: 80, css: 70 };
+            var student2 = { name: "홍길동", java: 70, oracle: 80, html: 100, css: 50 };
+            var student3 = { name: "이순신", java: 100, oracle: 100, html: 80, css: 90 };
+
+            // 위의 학생 정보들을 담을 배열 생성
+            var students = [];
+
+            students.push(student0);
+            students.push(student1);
+            students.push(student2);
+            students.push(student3);
+
+            // console.log(students); // [{…}, {…}, {…}, {…}]
+            // console.log(students[0]);
+            // console.log(students[0].name);
+
+            // 반복문 활용 for in 문
+            for (var i in students) {
+                students[i].javascript = 100;
+
+                students[i].getSum = function() {
+                    return this.java + this.oracle + this.html + this.css + this.javascript;
+                }
+
+                students[i].getAvg = function() {
+                    return this.getSum() / 5;
+                }
+            }
+
+            // console.log(students);
+
+            var area1 = document.getElementById("area1");
+
+            for (var i in students) {
+
+                // 객체 배열도 마찬가지로 with 키워드 사용 가능
+                with(students[i]) {
+                    area1.innerHTML += "이름 : " + name + "<br>";
+                    area1.innerHTML += "총점 : " + getSum() + "<br>";
+                    area1.innerHTML += "평균 : " + getAvg() + "<br>";
+                    area1.innerHTML += "<hr>";
+                }
+            }
+        }   
+    </script>
+
+    <hr>
+
+    <h3>* 생성자 함수</h3>
+
+    <p>
+        new 키워드를 사용해서 객체를 생성할 수 있는 함수를 의미 <br>
+        관례상 함수명 제시시 첫글자를 대문자로 사용 <br>
+        자바로 따지면 클래스와 동일한 역할 (내가 만들고자 하는 객체의 틀을 정의)
+    </p>
+
+    <button onclick="test2();">실행확인</button>
+    <div id="area2" class="area"></div>
+
+    <script>
+        function test2() {
+
+            // 생성자 함수를 호출해서 객체 생성
+            var student0 = new Student("홍길동", 100, 70, 90, 80, 30);
+            var student1 = new Student("김말똥", 80, 90, 100, 50, 70);
+            var student2 = new Student("이순신", 70, 100, 100, 70, 80);
+
+            // console.log(student0);
+            // console.log(student1);
+            // console.log(student2);
+
+            var students = [student0, student1, student2];
+
+            for (var i in students) {
+                document.getElementById("area2").innerHTML += students[i];
+            }
+        }
+
+        // 학생 객체를 생성할 수 있는 생성자 함수
+        function Student(name, java, oracle, html, css, javascript) {
+
+            // 일반 속성 정의 (자바에서의 필드부의 역할)
+            this.name = name;
+            this.java = java;
+            this.oracle = oracle;
+            this.html = html;
+            this.css = css;
+            this.javascript = javascript;
+
+            // 메소드 속성 정의 (자바에서의 메소드부의 역할)
+            this.getSum = function() {
+                return this.java + this.oracle + this.html + this.css + this.javascript;
+            }
+            this.getAvg = function() {
+                return this.getSum() / 5;
+            }
+            this.toString = function() {
+                return "name : " + name + ", 총점 : " + this.getSum() + ", 평균 : " + this.getAvg() + "<br>";
+            }
+
+            // 이 시점에서 this라는 객체에는 내가 정의한 모든 속성들이 들어있음
+            // 완성된 this를 리턴시키기
+            // return this; // 관례상 생략 가능
+        }
+    </script>
+
+    <hr>
+
+    <h3>* Date 내장 객체</h3>
+
+    <button onclick="test3();">실행확인</button>
+    <div id="area3" class="area"></div>
+
+    <script>
+        function test3() {
+
+            var area3 = document.getElementById("area3");
+
+            // Date 생성자 함수를 이용하여 객체 생성
+            var date1 = new Date();
+
+            // 2021년 2월 15일로 세팅
+            var date2 = new Date(2021, 2, 15);
+            // 월의 경우 내부적으로 +1 이 되기 때문에 해당 월(숫자) -1 을 해줘야 한다.
+            // 시, 분, 초를 언급하지 않을 경우 자동으로 0으로 세팅됨
+
+            area3.innerHTML += "Date() : " + date1 + "<br>";
+            area3.innerHTML += "Date(연,월,일) : " + date2 + "<br>";
+
+            // 2021 년 2월 15일에 시간까지 세팅
+            var date3 = new Date(2021, 2-1, 15, 17, 30, 29);
+            area3.innerHTML += "Date(연,월,일,시,분,초) : " + date3 + "<br>";
+
+            // 밀리세컨초 (ms) 세팅
+            // 1s == 1000ms
+            var date4 = new Date(2021, 1, 15, 17, 30, 29, 5000);
+            area3.innerHTML += "Date(연,월,일,시,분,초) : " + date4 + "<br>";
+            // 초 29 + 밀리세컨초 5000ms 이 더해져서 34 초가 나옴
+
+            // 년도만 추출
+            area3.innerHTML += "년도 : " + date1.getFullYear() + "<br>";
+            // 월만 추출
+            area3.innerHTML += "월 : " + (date1.getMonth()+1) + "<br>";
+            // 일만 추출
+            area3.innerHTML += "일 : " + (date1.getDate()) + "<br>";
+            // 요일만 추출
+            area3.innerHTML += "요일 : " + (date1.getDay()) + "<br>";
+            // 일 : 0, 월 : 1, ..., 토 : 6
+
+            // 시간만 추출 : getHours()
+            // 분만 추출 : getMinutes()
+            // 초만 추출 : getSeconds()
+
+            // 종강일 디데이 계산
+            // 2022년 12월 23일
+            var endDate = new Date(2022,11,23);
+            var today = new Date();
+
+            area3.innerHTML += "종강일 디데이 :" + (endDate - today) + "<br>";
+            // 현재 날짜~종강일 사이의 시간을 밀리세컨초 단위로 알려줌
+
+            // 단위 환산 : 1일 = 1000ms * 60s * 60m *24h
+            //                = 3600000 * 24 = 86400000
+            area3.innerHTML += "종강일 디데이 :" + Math.ceil((endDate - today)/(24 * 60 * 60 * 1000)) + "<br>";
+
+            var dday = Math.ceil((endDate - today)/(24 * 60 * 60 * 1000));
+            alert("종강까지 " + dday + "일 남았습니다.");
+        }
+    </script>
+
+
+
+</body>
+</html>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
