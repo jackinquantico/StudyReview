@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문자열과 숫자</title>
+    <style>
+        .area {
+            width: 300px;
+            border: 1px solid pink;
+        }
+        .small {
+            height: 200px;
+        }
+        .big {
+            height: 450px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>문자열과 숫자</h1>
+
+    <h3>* 문자열 관련 메소드(함수)</h3>
+    <button onclick="showStringMethod();">문자열 처리 메소드</button>
+    <div id="area1" class="area big"></div>
+
+    <script>
+        function showStringMethod() {
+
+            // 테스트용 문자열 변수
+            var str1 = "Hello World";
+
+            // 테스트 결과를 출력할 div 요소 객체
+            var area1 = document.getElementById("area1");
+            area1.innerHTML = "str1 : " + str1 + "<br>";
+
+            area1.innerHTML += "toUpperCase() : " + str1.toUpperCase() + "<br>";
+            area1.innerHTML += "toLowerCase() : " + str1.toLowerCase() + "<br>";
+            area1.innerHTML += "문자열의 길이 : " + str1.length + "<br>";
+
+            for (var i=0; i<str1.length; i++) {
+                area1.innerHTML += i + "번째 인덱스 : " + str1.charAt(i) + "<br>";
+            }
+
+            area1.innerHTML += "앞에서부터 첫 l 의 위치 : " + str1.indexOf("l") + "<br>";
+            area1.innerHTML += "뒤에서부터 첫 l 의 위치 : " + str1.lastIndexOf("l") + "<br>";
+            area1.innerHTML += "앞에서부터 첫 a 의 위치 : " + str1.indexOf("a") + "<br>"; // -1
+            // 해당 문자가 존재하지 않을 경우 -1 반환
+
+            area1.innerHTML += "substring(시작인덱스) : " + str1.substring(6) + "<br>";
+            area1.innerHTML += "substring(시작인덱스, 끝인덱스) : " + str1.substring(0,2) + "<br>";
+
+            // 테스트용 문자열 변수 2
+            var str2 = "사과,바나나,복숭아,키위";
+            var fruits = str2.split(","); // ["사과", "바나나", "복숭아", "키위"]
+
+            area1.innerHTML += "fruits : " + fruits + "<br>";
+            area1.innerHTML += "fruits 의 자료형 : " + typeof(fruits) + "<br>";
+
+            console.log(fruits);
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <h3>* 숫자 (수학) 관련 메소드</h3>
+    <button onclick="showMathMethod();">수학 관련 메소드</button>
+    <div id="area2" class="area small"></div>
+
+    <script>
+        function showMathMethod() {
+
+            // 테스트 결과를 출력할 div 요소
+            var area2 = document.getElementById("area2");
+
+            // 자바스크립트에서도 Math 내장 객체 제공
+            area2.innerHTML = "절대값 : " + Math.abs(-231) + "<br>";
+            area2.innerHTML += "랜덤값 : " + Math.random() + "<br>";
+            // Math.random() 함수는 0.0 이상 0.9999.. 사이의 숫자를 반환 (자바와 동일)
+            area2.innerHTML += "반올림 : " + Math.round(123.678) + "<br>";
+            // 소수점 첫번째 자리에서 반올림 (위치 지정 불가)
+            area2.innerHTML += "버림 : " + Math.floor(123.456) + "<br>";
+            area2.innerHTML += "올림 : " + Math.ceil(123.456) + "<br>";
+            area2.innerHTML += "제곱근 : " + Math.sqrt(4) + "<br>";
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <h3>* 문자열과 숫자 간의 산술연산</h3>
+    <button onclick="arithmetic();">산술연산</button>
+    <div id="area3" class="area big"></div>
+
+    <script>
+        function arithmetic() {
+
+            // 테스트 결과를 출력할 div 요소
+            var area3 = document.getElementById("area3");
+
+            // 문자열과 숫자간의 덧셈 연산
+            var test1 = 7 + 7; // 14
+            var test2 = 7 + "7"; // "77"
+            var test3 = "7" + 7; // "77"
+            var test4 = "7" + 7 + 7; // "77" + 7 => "777"
+            var test5 = "7" + (7 + 7); // "7" + 14 => "714"
+
+            area3.innerHTML = "test1 : " + test1 + "<br>";
+            area3.innerHTML += "test2 : " + test2 + "<br>";
+            area3.innerHTML += "test3 : " + test3 + "<br>";
+            area3.innerHTML += "test4 : " + test4 + "<br>";
+            area3.innerHTML += "test5 : " + test5 + "<br>";
+            // 덧셈 연산의 경우 숫자형 -> 문자열형으로 자동형변환이 이루어진다.
+
+            // js에서는 문자열과 숫자간의 그 이외의 산수연산도 가능함
+            var test6 = "7" * 7; // "7" -> 7 => 49
+            var test7 = "7" - 7; // "7" -> 7 => 0
+            var test8 = "7" / 7; // "7" -> 7 => 1
+
+            area3.innerHTML += "<hr>";
+            area3.innerHTML += "test6 : " + test6 + "<br>";
+            area3.innerHTML += "test7 : " + test7 + "<br>";
+            area3.innerHTML += "test8 : " + test8 + "<br>";
+            // 나머지 산술연산의 경우 문자열형 -> 숫자형으로 자동형변환이 이루어진다.
+            // 단, 문자열이 숫자형태여야만 한다. (문자열에 숫자만 존재해야함)
+
+            // NaN : Not a Number
+            // 문자열이 숫자형으로 바뀔 때 숫자 이외의 문자들이 존재하면 발생
+            // isNaN(판단할값) : 판단할 값이 숫자가 아닐 경우 true / 숫자일 경우 false 반환
+
+            // 강제형변환
+            // 1. 문자열 => 숫자
+            // Number(문자열)
+            // parseInt(문자열)
+            // parseFloat(문자열)
+
+            // 테스트용 변수
+            var iNum = 2; // 숫자
+            var sNum = "3"; // 문자열
+
+            var test9 = iNum + sNum; // 2 + "3" -> "2" + "3" => "23"
+            var test10 = iNum + Number(sNum); // 2 + "3" -> 2 + 3 => 5
+            var test11 = iNum + parseInt(sNum); // 5
+            var test12 = iNum + parseFloat(sNum); // 5
+
+            area3.innerHTML += "<hr>";
+            area3.innerHTML += "test9 : " + test9 + "<br>";
+            area3.innerHTML += "test10 : " + test10 + "<br>";
+            area3.innerHTML += "test11 : " + test11 + "<br>";
+            area3.innerHTML += "test12 : " + test12 + "<br>";
+
+            // 각 함수의 차이점
+            var fNum = "1.234";
+
+            var test13 = iNum + fNum; // 2 + "1.234" -> "2" + "1.234" => "21.234"
+            var test14 = iNum + Number(fNum); // 2 + 1.234 => 3.234
+            var test15 = iNum + parseInt(fNum); // 2 + 1 => 3 (소숫점이 절삭됨)
+            var test16 = iNum + parseFloat(fNum); // 2 + 1.234 => 3.234
+
+            area3.innerHTML += "<hr>";
+            area3.innerHTML += "test13 : " + test13 + "<br>";
+            area3.innerHTML += "test14 : " + test14 + "<br>";
+            area3.innerHTML += "test15 : " + test15 + "<br>";
+            area3.innerHTML += "test16 : " + test16 + "<br>";
+
+            // 2. 숫자 -> 문자열
+            // String(숫자)
+
+            // 테스트용 변수
+            var a = 1; // 숫자
+            var b = 2; // 숫자
+
+            var test17 = a + b; // 3
+            var test18 = String(a) + String(b); // "1" + "2" => "12"
+            
+            area3.innerHTML += "<hr>";
+            area3.innerHTML += "test17 : " + test17 + "<br>";
+            area3.innerHTML += "test18 : " + test18 + "<br>";
+        }
+    </script>
+
+    <br><hr>
+
+    <h3>* 사칙연산 계산기 만들기</h3>
+    
+    <!-- input type="number" 은 숫자 값만 입력가능하더라도 실제로는 문자열 타입이다. -->
+    정수1 : <input type="number" id="num1"><br>
+    정수2 : <input type="number" id="num2"><br>
+
+    <label id="result"></label> <br>
+    <button onclick="plus();">덧셈</button>
+    <button onclick="minus();">뺄셈</button>
+    <button onclick="product();">곱셈</button>
+    <button onclick="division();">나눗셈</button>
+
+    <script>
+        function plus() {
+
+            var num1 = document.getElementById("num1");
+            var num2 = document.getElementById("num2");
+
+            // var sum = num1.value + num2.value; // 10, 20 입력시 1020 출력
+            var sum = Number(num1.value) + Number(num2.value); // 30 출력
+
+            // label 태그 가져오기
+            document.getElementById("result").innerHTML = "결과 : " + sum;
+        }
+        function minus() { // 코드를 간결하게 표현
+
+            var num1 = Number(document.getElementById("num1").value);
+            var num2 = Number(document.getElementById("num2").value);
+
+            document.getElementById("result").innerHTML = "결과 : " + (num1 + num2);
+        }
+        function product() {
+
+            var num1 = document.getElementById("num1");
+            var num2 = document.getElementById("num2");
+
+            var result = Number(num1.value) * Number(num2.value);
+
+            document.getElementById("result").innerHTML = "결과 : " + result;
+        }
+        function division() {
+
+            var num1 = document.getElementById("num1");
+            var num2 = document.getElementById("num2");
+
+            var result = Number(num1.value) / Number(num2.value);
+
+            document.getElementById("result").innerHTML = "결과 : " + result;
+        }
+    </script>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
