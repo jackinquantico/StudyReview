@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정규표현식을 활용한 회원가입폼</title>
+    <style>
+        form {
+            border:1px solid lightgray;
+            padding:20px;
+        }
+
+        label {
+            color:gray;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+        * 정규표현식을 활용한 회원가입 폼 만들기
+        1) 아이디에 해당하는 input 의 name, id 속성값은 userId 로 하시오
+        2) 비밀번호에 해당하는 input 의 name, id 속성값은 userPwd1 로 하시오
+        3) 비밀번호 확인에 해당하는 input 의 name, id 속성값은 userPwd2 로 하시오
+        4) 이름에 해당하는 input 의 name, id 속성값은 userName 으로 하시오
+        5) 이메일에 해당하는 input 의 name, id 속성값은 email 로 하시오
+        6) 취미에 해당하는 input 의 name, id 속성값은 hobby 로 하시오
+            placeholder 의 속성값은 화면과 같이 하시오
+            datalist 를 활용하여 해당 input 클릭 시 목록을 보이게 하시오 (각 목록들은 placeholder 에 제시한 값들로)
+        7) 거주지에 해당하는 select 의 name, id 속성값은 address 로 하시오
+            각 option 은 서울, 인천, 부산으로 하고 기본적으로 서울이 보이도록 하시오
+        8) 아이디, 비밀번호, 비밀번호확인, 이름은 필수입력사항이라는 속성을 부여하시오
+    -->
+
+    <br>
+    <form action="insert.me" method="post">
+        * 아이디 : 
+        <input type="text" name="userId" id="userId" required> <br>
+        <label>첫글자는 반드시 영문자로, 그리고 영문자, 숫자를 포함하여 총 4~12자로 입력하시오.</label>
+        <br><br>
+
+        * 비밀번호 : 
+        <input type="password" name="userPwd1" id="userPwd1" required> <br>
+        <label>영문자, 숫자, 특수문자로 총 8~15자로 입력하시오.</label>
+        <br><br>
+
+        * 비밀번호 확인 : 
+        <input type="password" id="userPwd2" required> <br>
+        <label>위의 비밀번호와 일치하게 입력하시오.</label>
+        <br><br>
+
+        * 이름 : 
+        <input type="text" name="userName" id="userName" required> <br>
+        <label>한글로만 이루어져야 하며 2글자 이상으로 입력하시오.</label>
+        <br><br>
+
+        * 이메일 : 
+        <input type="email" name="email" id="email"> <br>
+        <label>이메일 형식에 맞춰서 입력하시오.</label>
+        <br><br>
+
+        * 취미 : 
+        <input type="text" name="hobby" id="hobby" placeholder="축구, 농구, 야구, 독서 등" list="hobbyList"> <br>
+        <datalist id="hobbyList">
+            <option value="soccer">축구</option>
+            <option value="basketball">농구</option>
+            <option value="baseball">야구</option>
+            <option value="reading">독서</option>
+        </datalist>
+        <br>
+
+        * 거주지 : 
+        <select name="address" id="address">
+            <option value="seoul">서울</option>
+            <option value="incheon">인천</option>
+            <option value="busan">부산</option>
+        </select>
+        <br><br>
+
+        <input type="submit" value="회원가입" onclick="return validate();">
+        <input type="reset" value="취소">
+    </form>
+
+    <script>
+        // 유효성 검사
+        function validate() {
+
+            // 아이디, 비밀번호, 비밀번호 일치, 이름
+            // 모두 유효하면 return true
+            // 하나라도 유효하지 않으면 return false
+            var userId = document.getElementById("userId");
+            var userPwd1 = document.getElementById("userPwd1");
+            var userPwd2 = document.getElementById("userPwd2");
+            var userName = document.getElementById("userName");
+
+            // 아이디 검사
+            var regExp = /^[a-z][a-z\d]{3,11}$/;
+
+            if (!regExp.test(userId.value)) {
+                alert("유효한 아이디를 입력해주세요.");
+                userId.select(); // 재입력 유도
+                return false;
+            }
+
+            // 비밀번호 검사
+            // 영문자(대소문자), 숫자, 특수문자(!@#$%^) 로 8~15자
+            regExp = /^[a-z\d!@#$%^]{8,15}$/i;
+
+            if (!regExp.test(userPwd1.value)) {
+                alert("유효한 비밀번호를 입력하세요.");
+                userPwd1.value = "";
+                userPwd1.focus(); // 재입력 유도
+                return false;
+            }
+
+            // 비밀번호 일치 검사
+            if (userPwd1.value != userPwd2.value) {
+                alert("비밀번호가 일치하지 않습니다.");
+                userPwd2.value = "";
+                userPwd2.focus();
+                return false;
+            }
+
+            // 이름 검사
+            regExp = /^[가-힣]{2,}$/;
+
+            if (!regExp.test(userName.value)) {
+                alert("유효한 이름을 입력해주세요.");
+                userName.select(); // 재입력 유도
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
