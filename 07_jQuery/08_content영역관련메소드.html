@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>content 영역 관련 메소드</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <h1>content 영역(innerHTML, innerText) 관련 메소드</h1>
+
+    <h3>* html("문구") : innerHTML 속성과 관련된 메소드</h3>
+
+    <p>
+        선택된 요소의 content 영역을 리턴해주거나 변경해주는 메소드 <br><br>
+
+        - $("선택자").html() : 선택된 요소의 content 영역의 값을 반환 (자바의 getter 역할)<br>
+        - $("선택자").html("문구") : 선택된 요소의 content 영역을 해당 문구로 변경 (자바의 setter 역할)
+    </p>
+
+    <h1 id="test1">
+        <a>네이버로</a>
+    </h1>
+
+    <h1 id="test2">
+
+    </h1>
+
+    <script>
+        $(function() {
+
+            // 순수 자바스크립트 방식
+            // var tmp = document.getElementById("test1").innerHTML;
+
+            // jQuery 방식
+            var tmp = $("#test1").html();
+            console.log(tmp); // "<a>네이버로</a>" => html 태그까지 문자열로써 갖고 온다
+
+            // 순수 자바스크립트 방식
+            // document.getElementById("test2").innerHTML = tmp;
+
+            // jQuery 방식
+            $("#test2").html(tmp);
+            $("#test2").children().attr("href", "http://www.naver.com");
+            // 위에서 만든 태그에 href 속성 추가 (attr() 이용)
+        });
+    </script>
+    
+    <div class="class1">test1</div>
+    <div class="class1">test1</div>
+    <div class="class1">test1</div>
+
+    <script>
+        $(function() {
+
+            // html() 메소드, text() 메소드 모두 매개변수로 함수 제시 가능
+            
+            // 매개변수로 문자열 제시시 : 해당 문자열의 내용이 그대로 innerHTML 속성에 대입
+            // $(".class1").html("<h1>zzzz</h1>");
+
+            // 매개변수로 함수 제시시 : 해당 함수의 리턴값을 문자열로 지정
+            /*
+            $(".class1").html(function() {
+                return "<h1>zzzz</h1>";
+            });
+            */
+
+            // 매개변수로 함수 제시하되 각각 다른 내용으로 출력하기
+            // 선택된 요소들에 순차적으로 접근할 때마다 실행되게끔 매개변수로 함수 제시
+            // 이때 함수 실행 시 리턴된 값이 매번 바뀌게 지정
+            /*
+            var count = 0;
+            $(".class1").html(function() {
+                return "<h1>" + count++ + "</h1>";
+            });
+            */
+
+            // 함수의 매개변수로 함수를 제시하는 것 : 콜백함수
+            // => 함수 실행 후의 반환된 결과를 매개변수로 반영
+
+            // 해당 function이 호출될 때마다
+            // 첫번째 매개변수로는 순차적으로 접근하는 요소의 인덱스 수
+            // 두번째 매개변수로는 순차적으로 접근하는 요소의 content 영역값이 전달
+            // => 두 개의 매개변수 전달
+            $(".class1").html(function(index, html) {
+
+                return "<h1>인덱스 : " + index + ", content 내용 : " + html + "</h1>";
+            });
+        });
+    </script>
+
+    <hr>
+
+    <h3>* text("문구") 메소드 : innerText 속성과 관련된 메소드 </h3>
+
+    <p>
+        선택된 요소의 content 영역의 텍스트만 리턴해주거나 변경해주는 메소드 <br><br>
+
+        - $("선택자").text() : 선택된 요소의 content 영역을 반환 <br>
+        - $("선택자").text("문구") : 선택된 요소의 content 내용을 전달값으로 변경
+    </p>
+
+    <h1 id="test3">
+        <a>구글로</a>
+    </h1>
+
+    <h1 id="test4">
+
+    </h1>
+
+    <script>
+        $(function() {
+
+            // 순수 자바스크립트 방식
+            // var tmp = document.getElementById("test3").innerText;
+
+            // jQuery 방식
+            var tmp = $("#test3").text();
+            console.log(tmp);
+
+            // 순수 자바스크립트 방식
+            // document.getElementById("test4").innerText = "<a>" + tmp + "</a>";
+
+            // jQuery 방식
+            $("#test4").text("<a>" + tmp + "</a>");
+        });
+    </script>
+
+    <br><br>
+
+    <div class="class2">test2</div>
+    <div class="class2">test2</div>
+    <div class="class2">test2</div>
+    
+    <script>
+        $(function() {
+
+            // $(".class2").text("ggg");
+
+            /*
+            $(".class2").text(function() {
+                return "<h1>zzzz</h1>";
+            });
+            */
+
+            /*
+            var count = 0;
+            $(".class2").text(function() {
+                return "<h1>" + count++ + "</h1>";
+            });
+            */
+
+            $(".class2").text(function(index, text) {
+                return "<h1>인덱스 : " + index + ", 내용 : " + text + "</h1>";
+            });
+        });
+    </script>
+
+</body>
+</html>
