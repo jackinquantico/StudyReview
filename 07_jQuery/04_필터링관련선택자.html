@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필터링 관련 선택자 및 메소드</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>필터링 관련 선택자 및 메소드</h1>
+
+    <h3>* 필터 관련 선택자</h3>
+
+    <table border="1">
+        <tr>
+            <td>이름</td>
+            <td>혈액형</td>
+            <td>거주지</td>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>A형</td>
+            <td>서울</td>
+        </tr>
+        <tr>
+            <td>김영희</td>
+            <td>B형</td>
+            <td>경기도</td>
+        </tr>
+        <tr>
+            <td>이순신</td>
+            <td>O형</td>
+            <td>부산</td>
+        </tr>
+        <tr>
+            <td colspan="2">총인원</td>
+            <td>3명</td>
+        </tr>
+    </table>
+
+    <script>
+        /*
+            * 필터 관련 선택자
+            선택자:first => 첫번째
+            선택자:last => 마지막
+            선택자:even => 짝수 (기준은 0번부터 시작점 잡힘)
+            선택자:odd => 홀수번째
+        */
+       
+        $(function() {
+
+            $("tr:first").css("backgroundColor", "black").css("color", "white");
+            $("tr:last").css({backgroundColor:"red", color:"white"});
+            $("tr:even").css("backgroundColor", "lightgray"); // 0부터 시작해서 짝수번째 행
+            $("tr:odd").css("backgroundColor", "yellow"); // 홀수번째 행
+        });
+    </script>
+
+    <hr>
+
+    <h3>* 필터링과 관련된 메소드</h3>
+
+    <p>
+        기준이 되는 요소 중에서 특정 요소들만 걸러서 선택해주는 메소드 <br>
+        first(), last(), filter(), eq(), not()
+    </p>
+
+    <h4 class="test">test1</h4>
+    <h4 class="test">test2</h4>
+    <h4 class="test">test3</h4>
+    <h4 class="test">test4</h4>
+    <h4>test5</h4>
+    <h4 class="test">test6</h4>
+
+    <script>
+        $(function() {
+
+            // h4 요소 중에서 가장 처음 것을 선택
+            $("h4").first().css("font-size", "20px");
+
+            // h4 요소 중에서 가장 마지막 것을 선택
+            $("h4").last().css("font-size", "30px");
+
+            // 추가적인 조건을 제시하는 filter() 메소드
+            // h4 요소 중에서 클래스명이 test 인 것들 선택
+            $("h4").filter(".test").html("zzzz");
+
+            // 아닌 것만 선택하는 not() 메소드
+            // h4 요소 중에서 클래스명이 test 아닌 것들 선택
+            $("h4").not(".test").css("color","red");
+
+            // 인덱스를 제시할 수 있는 eq() 메소드 : 0으로 시작점 잡힘
+            // h4 요소 중에서 2번째 요소를 선택
+            $("h4").eq(2).text("eq로 선택됨");
+        });
+    </script>
+
+</body>
+</html>
