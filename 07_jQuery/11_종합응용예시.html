@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>종합 응용 예시</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!--
+        * 부트스트랩
+        웹 사이트를 쉽게 꾸밀 수 있게 도와주는 HTML, CSS, JS 프레임워크 (규칙성이 강한 라이브러리)
+    -->
+
+    <style>
+        tbody>tr:hover {
+            cursor: pointer;
+            /* color: white;
+            background-color: lightgray;
+            text-decoration: underline; */
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>게시판 리스트</h2>
+
+    <br>
+
+    <!-- table 에 부트스트랩의 table, table-hover 클래스 추가해서 스타일 바꾸기 -->
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>글번호</td>
+                <td>제목</td>
+                <td>작성자</td>
+                <td>조회수</td>
+                <td>작성일</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>3</td>
+                <td>세번째 글 제목입니다.</td>
+                <td>user01</td>
+                <td>23</td>
+                <td>2021-09-21</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>두번째 글 제목입니다.</td>
+                <td>user02</td>
+                <td>15</td>
+                <td>2021-08-24</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>첫번째 글 제목입니다.</td>
+                <td>admin</td>
+                <td>230</td>
+                <td>2021-08-01</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    선택된 게시글 정보 :
+    <label id="l1">글번호 </label> /
+    <label id="l2">제목 </label> /
+    <label id="l3">작성자 </label> /
+    <label id="l4"> 조회수 </label> /
+    <label id="l5">작성일 </label>
+
+    <script>
+        $(function() {
+
+            $("tbody>tr").click(function() {
+
+                // console.log($(this));
+                // console.log($(this).children());
+                // console.log($(this).children().eq(0).text());
+
+                // $("#l1").text($(this).children().eq(0).text());
+
+                // each 메소드 활용
+                $(this).children().each(function(index, el) {
+                    
+                    // index : 순차적으로 접근할 때마다의 인덱스 수
+                    // el : 순차적으로 접근되는 요소 객체 (td 태그)
+                    // console.log(el.innerText);
+                    console.log($(el).text());
+
+                    // $("#l"+(index+1)).text(el.innerText);
+                    $("#l"+(index+1)).text($(el).text());
+                });
+
+                // 해당 tr이 클릭되었을 때
+                // location.href = "boardDetailView.bo?bno=" + $(this).children().eq(0).text();
+            });
+        });
+    </script>
+
+    <hr>
+
+    <!-- 자주 쓰일법한 버튼 스타일 -->
+    <button class="btn btn-secondary">로그인</button>
+    <button class="btn btn-success" disabled>회원탈퇴</button>
+    <button class="btn btn-primary"><span class="spinner-border spinner-border-sm"></span> 회원가입</button>
+    <button class="btn btn-dark">글 작성하기</button>
+    <button class="btn btn-outline-secondary">글 수정하기</button>
+
+    <br><br>
+
+    <div class="btn btn-secondary btn-block">네이버로</div>
+    <a class="btn btn-success btn-block">구글로</a>
+
+    <br><br>
+
+    <hr>
+
+    <!-- 이메일 폼 예시 -->
+    <form action="/action_page.php">
+        <div class="form-group">
+          <label for="userId">ID</label>
+          <input type="text" class="form-control" placeholder="Enter ID" id="userId">
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password:</label>
+          <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+        </div>
+        <div class="form-group form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox"> Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <hr>
+
+    <!-- 모달창 예시 : 알림창, 대화상자, 팝업창 -> div 요소로 만들어져있음 -->
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+        로그인하기
+    </button>
+    
+    <!-- The Modal -->
+    <div class="modal" id="loginModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">로그인</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+    
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                      <label for="userId">ID</label>
+                      <input type="text" class="form-control" placeholder="Enter ID" id="userId">
+                    </div>
+                    <div class="form-group">
+                      <label for="pwd">Password:</label>
+                      <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+                    </div>
+                    <div class="form-group form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox"> Remember me
+                      </label>
+                    </div>
+                    
+                </form>
+            </div>
+    
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary">취소하기</button>
+                <button type="submit" class="btn btn-primary" data-dismiss="modal">로그인</button>
+            </div>
+    
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
