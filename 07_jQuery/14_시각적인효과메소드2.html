@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시각적인 효과 메소드 - 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <!--
+        css 의 opacity 속성 : 투명도 관련 속성 (0 ~ 1) - 0에 가까울수록 투명해짐
+    -->
+
+    <div id="area" style="width:100px; height:100px; background-color:red; opacity:0.4;"></div>
+
+    <br>
+
+    <h3>* fadeIn() / fadeOut() / fadeToggle()</h3>
+
+    <p>
+        선택된 요소가 점점 투명해지면서 사라지고 점점 선명해지면서 보여지게 해주는 메소드
+    </p>
+
+    <button id="fadeOut">숨기기</button>
+    <button id="fadeIn">보여주기</button>
+    <button id="fadeToggle">토글</button>
+
+    <br>
+
+    <img id="eclipse" src="resources/image/eclipse.jpg">
+
+    <script>
+        $(function() {
+
+            // fadeIn(), fadeOut(), fadeToggle() 도 마찬가지로 ms초로 시간 지정 가능
+            $("#fadeOut").click(function() {
+                $("#eclipse").fadeOut(1000);
+                $("#area").fadeOut(3000);
+
+                // 숨겨진 후 display:none; 되기 대문에 요소가 숨겨진 뒤 자리도 차지하지 않음
+            }); 
+
+            $("#fadeIn").click(function() {
+                $("#eclipse").fadeIn(1000);
+                $("#area").fadeIn(500);
+            }); 
+
+            $("#fadeToggle").click(function() {
+                $("#eclipse").fadeToggle(1000);
+                $("#area").fadeToggle(400);
+            }); 
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시각적인 효과 메소드 - 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <h1>시각적인 효과 메소드 (Effect 메소드)</h1>
+
+    <p>
+        페이지 내에 애니메이션 효과를 만들기 위해 사용되는 메소드 집합
+    </p>
+
+    <h3>* show() / hide() / toggle()</h3>
+
+    <p>
+        선택된 요소가 점점 커지면서 보이거나 (show), 점점 작아지면서 사라지게 하는 메소드 (hide)
+    </p>
+
+    <button id="hide">숨기기</button>
+    <button id="show">보여주기</button>
+    <button id="toggle">토글</button>
+
+    <br><br>
+
+    <img id="bono" src="resources/image/bono.jpg">
+
+    <!-- 이미지가 아닌 일반 요소에 적용 가능 -->
+
+    <div id="area" style="width:100px; height:100px; background-color:red;"></div>
+
+    <script>
+        $(function() {
+
+            // 속도를 ms 초 단위로 지정 
+
+            $("#hide").click(function() {
+                $("#bono").hide(3000);
+                $("#area").hide(1000);
+            });
+
+            $("#show").click(function() {
+                $("#bono").show(500);
+                $("#area").show(100);
+            });
+
+            // toggle 은 스위치 개념 (on/off 기능)
+            $("#toggle").click(function() {
+                $("#bono").toggle(3000);
+                $("#area").toggle(1000);
+            });
+
+            // 개발자도구에서 style 속성이 실시간으로 변경됨
+        });
+    </script>
+
+
+</body>
+</html>

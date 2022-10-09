@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시각적인 효과 메소드 - 3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+        div {
+            background-color: pink;
+            width: 300px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 10px;
+            color: gray;
+            font-weight: 600;
+            border: solid 1px white;
+            cursor: pointer;
+        }
+
+        p {
+            border: 1px solid gray;
+            width: 300px;
+            height: 100px;
+            margin-top: 5px;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>* slideDown() 과 slideUp() 이용한 쇼핑몰 FAQ</h3>
+
+    <!-- FAQ : 자주 묻는 질문 기능 -->
+
+    <!--
+        slideDown : 서서히 내려오면서 보여주는 메소드
+        slideUp : 서서히 올라가면서 사라지는 메소드
+        slideToggle : on / off 기능
+    -->
+    
+    <div>Q. 반품 언제 되나요?</div>
+    <p>A. 지금 확인 중입니다.</p>
+
+    <div>Q. 상품 위치 어딨나요?</div>
+    <p>A. 배송 조회 해보세요.</p>
+
+    <div>Q. 이 사이즈 있나요?</div>
+    <p>A. 네 있습니다.</p>
+
+    <div>Q. 전화 통화 가능한 시간 알려주세요</div>
+    <p>A. 플러스친구 카톡을 이용해주세요.</p>
+
+    <div>Q. 판매자가 연락이 안 됩니다.</div>
+    <p>A. 경찰에 신고하세요.</p>
+
+    <script>
+        $(function() {
+
+            $("div").click(function() {
+
+                // $(this) : target : 현재 이벤트가 발생한 요소
+                var $p = $(this).next();
+                // jQuery 방식으로 선택된 요소 객체 담아두는 변수는 앞에 관례상 $ 붙임
+
+                // 답변을 담은 p 요소가 display: none; 상태라면 보여지게
+                //                    display: block; 상태라면 없어지게
+                if ($p.css("display") == "none") {
+                    // .css() 또한 속성명만 매개변수로 넘기면 해당 속성값을 반환
+                    // 자바의 getter / setter 역할
+
+                    // 기존의 열려있던 답변은 먼저 닫아주기
+                    $(this).siblings("p").slideUp(1000);
+    
+                    // 선택한 답변 보여지게
+                    $p.slideDown(1000);
+                } else {
+
+                    // 기존 답변이 보이는 상태라면 사라지게
+                    $p.slideUp(1000);
+                }
+            });
+
+            // $("p").click(function() {
+
+            //     $(this).slideUp(1000);
+            // });
+        });
+    </script>
+
+</body>
+</html>
